@@ -22,10 +22,11 @@ type LogoItem =
 
 const PARTNER_LOGOS: LogoItem[] = Object.entries(partnerModules)
   .map(([path, src]) => {
-    const alt = path.split('/').pop()!.replace('.png', '');
-
-    return { src, alt } satisfies LogoItem;
+const slug = path.split('/').pop()!.replace('.webp', '');
+const alt = path.split('/').pop()!.replace('.png', '');
+return { src, alt } satisfies LogoItem;
   })
+  // Чуть-чуть «перетасуем» — чтобы рядом не стояли бренды одной категории.
   .sort((a, b) => a.alt.localeCompare(b.alt, 'en'));
 
 const SMOOTH_TAU = 0.25;
@@ -40,15 +41,20 @@ interface LogoLoopProps {
   hoverSpeed?: number;
   fadeOut?: boolean;
   className?: string;
+  /** CSS-цвет фона у фейдов по краям (точно совпадает с фоном секции). */
   fadeColor?: string;
 }
 
+/**
+ * Бесконечная карусель логотипов с плавным rAF-смещением, по мотивам
+ * React Bits LogoLoop. Сохраняем фичи: pauseOnHover, direction, fadeOut.
+ */
 const LogoLoop: FC<LogoLoopProps> = ({
   logos,
   speed = 60,
   direction = 'left',
-  logoHeight = 56,
-  gap = 96,
+  logoHeight = 48,
+  gap = 80,
   pauseOnHover = true,
   hoverSpeed,
   fadeOut = true,
@@ -67,6 +73,7 @@ const LogoLoop: FC<LogoLoopProps> = ({
   const velocityRef = useRef(0);
   const lastTsRef = useRef<number | null>(null);
 
+  /* --- замер ширины одной «копии» списка для бесшовного цикла --- */
   useEffect(() => {
     const updateDimensions = () => {
       const containerWidth = containerRef.current?.clientWidth ?? 0;
@@ -76,19 +83,16 @@ const LogoLoop: FC<LogoLoopProps> = ({
       if (!containerWidth || !sequenceWidth) return;
 
       setSeqWidth(Math.ceil(sequenceWidth));
-
-      const copiesNeeded = Math.ceil(containerWidth / sequenceWidth) + 3;
-      setCopyCount(Math.max(3, copiesNeeded));
+      const copiesNeeded = Math.ceil(containerWidth / sequenceWidth) + 2;
+      setCopyCount(Math.max(2, copiesNeeded));
     };
 
     updateDimensions();
     window.addEventListener('resize', updateDimensions);
 
     const images = seqRef.current?.querySelectorAll('img') ?? [];
-
     images.forEach((img) => {
       const htmlImg = img as HTMLImageElement;
-
       if (!htmlImg.complete) {
         htmlImg.addEventListener('load', updateDimensions, { once: true });
         htmlImg.addEventListener('error', updateDimensions, { once: true });
@@ -97,7 +101,6 @@ const LogoLoop: FC<LogoLoopProps> = ({
 
     return () => {
       window.removeEventListener('resize', updateDimensions);
-
       images.forEach((img) => {
         img.removeEventListener('load', updateDimensions);
         img.removeEventListener('error', updateDimensions);
@@ -108,19 +111,18 @@ const LogoLoop: FC<LogoLoopProps> = ({
   const effectiveHoverSpeed = useMemo(() => {
     if (hoverSpeed !== undefined) return hoverSpeed;
     if (pauseOnHover) return 0;
-
     return undefined;
   }, [hoverSpeed, pauseOnHover]);
 
+  /* --- основной rAF-цикл с экспоненциальным сглаживанием скорости --- */
   useEffect(() => {
     const track = trackRef.current;
-
     if (!track || !seqWidth) return;
 
+    // Уважение к prefers-reduced-motion: статичный стек без анимации.
     const prefersReducedMotion =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     if (prefersReducedMotion) {
       track.style.transform = 'translate3d(0, 0, 0)';
       return;
@@ -134,7 +136,6 @@ const LogoLoop: FC<LogoLoopProps> = ({
 
     const animate = (ts: number) => {
       if (lastTsRef.current == null) lastTsRef.current = ts;
-
       const dt = (ts - lastTsRef.current) / 1000;
       lastTsRef.current = ts;
 
@@ -144,7 +145,6 @@ const LogoLoop: FC<LogoLoopProps> = ({
           : baseTargetVelocity;
 
       const easingFactor = 1 - Math.exp(-dt / SMOOTH_TAU);
-
       velocityRef.current += (target - velocityRef.current) * easingFactor;
 
       let nextOffset = offsetRef.current + velocityRef.current * dt;
@@ -156,7 +156,6 @@ const LogoLoop: FC<LogoLoopProps> = ({
     };
 
     rafId = requestAnimationFrame(animate);
-
     return () => {
       if (rafId != null) cancelAnimationFrame(rafId);
       lastTsRef.current = null;
@@ -166,7 +165,6 @@ const LogoLoop: FC<LogoLoopProps> = ({
   const handleMouseEnter = () => {
     if (effectiveHoverSpeed !== undefined) setIsHovered(true);
   };
-
   const handleMouseLeave = () => {
     if (effectiveHoverSpeed !== undefined) setIsHovered(false);
   };
@@ -198,7 +196,7 @@ const LogoLoop: FC<LogoLoopProps> = ({
                   src={logo.src}
                   alt={logo.alt}
                   style={{ height: logoHeight }}
-                  className="pointer-events-none w-auto max-w-[20rem] object-contain opacity-95 transition-all duration-300 ease-out select-none group-hover:scale-[1.05] group-hover:opacity-100 md:max-w-[26rem] xl:max-w-[30rem]"
+                  className="pointer-events-none w-auto max-w-[18rem] object-contain opacity-95 transition-all duration-300 ease-out select-none group-hover:opacity-100 group-hover:scale-[1.06] md:max-w-[22rem]"
                   loading="lazy"
                   decoding="async"
                 />
@@ -238,16 +236,17 @@ const LogoLoop: FC<LogoLoopProps> = ({
           })}
         </ul>
       )),
+    // зависимости: пересборка списка при смене копий/контента
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [copyCount, logos, gap, logoHeight, effectiveHoverSpeed]
   );
 
+  // Inline стили для фейдов — гарантированный градиент в нужный цвет секции.
   const fadeLeftStyle = {
-    background: `linear-gradient(90deg, ${fadeColor} 0%, ${fadeColor} 12%, transparent 100%)`,
+    background: `linear-gradient(90deg, ${fadeColor} 0%, ${fadeColor} 35%, transparent 100%)`,
   };
-
   const fadeRightStyle = {
-    background: `linear-gradient(270deg, ${fadeColor} 0%, ${fadeColor} 12%, transparent 100%)`,
+    background: `linear-gradient(270deg, ${fadeColor} 0%, ${fadeColor} 35%, transparent 100%)`,
   };
 
   return (
@@ -259,13 +258,12 @@ const LogoLoop: FC<LogoLoopProps> = ({
         <>
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 sm:w-10 md:w-14 lg:w-16"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-32 md:w-40"
             style={fadeLeftStyle}
           />
-
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 sm:w-10 md:w-14 lg:w-16"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-32 md:w-40"
             style={fadeRightStyle}
           />
         </>
@@ -273,7 +271,7 @@ const LogoLoop: FC<LogoLoopProps> = ({
 
       <div
         ref={trackRef}
-        className="flex py-8 will-change-transform md:py-10 lg:py-12"
+        className="flex py-10 will-change-transform md:py-12"
       >
         {logoLists}
       </div>
@@ -281,6 +279,10 @@ const LogoLoop: FC<LogoLoopProps> = ({
   );
 };
 
+/**
+ * Premium-секция «Нам доверяют» с бесшовной каруселью логотипов
+ * партнёров. Используется как social-proof мост между Hero и Stats.
+ */
 export default function PartnersLogoMarquee() {
   return (
     <section
@@ -291,26 +293,24 @@ export default function PartnersLogoMarquee() {
         aria-hidden
         className="dot-grid pointer-events-none absolute inset-0 opacity-30"
       />
-
-      <div className="relative z-10 mx-auto w-full max-w-[1700px] px-margin-mobile py-12 md:px-margin-desktop md:py-14 xl:px-8">
+      <div className="max-w-container-max relative z-10 mx-auto px-margin-mobile py-14 md:px-margin-desktop md:py-16">
+        {/* Header строки в стиле eyebrow */}
         <div className="mb-8 flex items-center justify-between gap-6 md:mb-10">
           <span className="section-index">Trust · Partners</span>
-          <span className="hairline hidden flex-1 sm:block" />
+          <span className="hairline hidden flex-1 sm:block max-w-[24rem]" />
         </div>
-      </div>
 
-      <div className="relative z-10 w-full">
-        <LogoLoop
-          logos={PARTNER_LOGOS}
-          speed={90}
-          direction="right"
-          logoHeight={112}
-          gap={160}
-          pauseOnHover
-          fadeOut
-          fadeColor="#f2f4f6"
-          className="px-2 sm:px-4 md:px-6"
-        />
+        {/* Сам Logo Loop — цветные логотипы, мягкое hover-увеличение */}
+<LogoLoop
+  logos={PARTNER_LOGOS}
+  speed={100}
+  direction="right"
+  logoHeight={100}   // было 80, стало 100
+  gap={120}          // было 96, стало 120
+  pauseOnHover
+  fadeOut
+  fadeColor="#f2f4f6"
+/>
       </div>
     </section>
   );

@@ -1,57 +1,42 @@
-/**
- * Картинки (assets) для героя на странице каждого курса.
- *
- * КАК ЗАПОЛНИТЬ:
- * 1. Найди slug нужного курса ниже (например, "antiterror").
- * 2. Вставь URL картинки между кавычками "" в поле heroImage.
- *    - Можно вставить внешнюю ссылку: "https://example.com/picture.jpg"
- *    - Или путь к файлу из public/, например:
- *        положи файл в public/courses/antiterror.jpg,
- *        тогда heroImage = "/courses/antiterror.jpg".
- * 3. Если оставить пустую строку "" — в макете покажется аккуратный плейсхолдер,
- *    а не битая картинка.
- *
- * Этот файл правится РУКАМИ. При `npm run sync:stitch` он НЕ перезаписывается.
- */
 export const COURSE_ASSETS: Record<string, { heroImage: string }> = {
   anticorruption: {
-    heroImage: '',
+    heroImage: '/src/assets/cours/антикоррупция.png',
   },
   antiterror: {
-    heroImage: '',
+    heroImage: '/src/assets/cours/антитеррор (2).png',
   },
   'labor-protection': {
-    heroImage: '',
+    heroImage: '/src/assets/cours/Безопасность и Охрана Труда.png',
   },
   bullying: {
-    heroImage: '',
+    heroImage: '/src/assets/cours/буллингарт.png',
   },
   'civil-defense': {
-    heroImage: '',
+    heroImage: '/src/assets/cours/Гражданнская оборона.png',
   },
   inclusivity: {
-    heroImage: '',
+    heroImage: '/src/assets/cours/Инклюзивность.png',
   },
   cybersecurity: {
-    heroImage: '',
+    heroImage: '/src/assets/cours/кибербез.png',
   },
   paramedic: {
-    heroImage: '',
+    heroImage: '/src/assets/cours/Парамедика.png',
   },
   'fire-ptm': {
-    heroImage: '',
+    heroImage: '/src/assets/cours/пожарная безопасность.png',
   },
   'industrial-safety': {
-    heroImage: '',
+    heroImage: '/src/assets/cours/промышленная безопасность .png',
   },
   'sanitary-epidemiological': {
-    heroImage: '',
+    heroImage: '/src/assets/cours/СЭЗ (2).png',
   },
   conciliation: {
-    heroImage: '',
+    heroImage: '/src/assets/cours/Согласительная коммисия.png',
   },
   electrical: {
-    heroImage: '',
+    heroImage: '/src/assets/cours/Электробезопасность.png',
   },
 };
 
