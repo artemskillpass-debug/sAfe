@@ -88,7 +88,7 @@ export default function Hero() {
             {/* CTA row */}
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <button type="button" className="btn-premium btn-premium--accent">
-                Получить демо
+              Запросить демо
                 <span className="material-symbols-outlined text-[20px]">
                   arrow_forward
                 </span>
@@ -100,28 +100,7 @@ export default function Hero() {
                 Смотреть возможности
               </button>
             </div>
-
-            {/* Social proof line */}
-            <div className="mt-9 flex items-center gap-4">
-              <div className="flex -space-x-2">
-                {['#3ABEF9', '#7bd0ff', '#00668a', '#a9b1ca'].map((c, i) => (
-                  <span
-                    key={i}
-                    aria-hidden
-                    className="ring-surface inline-block h-8 w-8 rounded-full ring-2"
-                    style={{ background: c }}
-                  />
-                ))}
-              </div>
-              <div className="leading-tight">
-                <div className="text-on-background text-[13px] font-semibold">
-                  Доверяют 1 500+ компаний
-                </div>
-                <div className="text-on-surface-variant text-[12px]">
-                  от&nbsp;Алматы до&nbsp;Астаны и&nbsp;дальше
-                </div>
-              </div>
-            </div>
+          
           </div>
 
           {/* Right: layered composition card */}
