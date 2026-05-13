@@ -1,129 +1,266 @@
-import { useId, useState } from 'react';
-import type { CourseDetail } from '../data/courses';
-import { buildCourseIncludesBodies } from '../lib/buildCourseIncludesBodies';
+import { useMemo, useState } from 'react';
+import BlobAccent from './BlobAccent';
 
-const CYAN_ACCENT = '#39C7F3';
+type CourseInclude = {
+  title: string;
+  body?: string;
+  text?: string;
+  items?: string[];
+};
 
-/** Заголовки аккордеона — как в референсе. */
-export const COURSE_INCLUDES_ACCORDION_TITLES = [
-  'Порядок и сроки проведения курсов обучения и проверки знаний по курсу',
-  'Что Вы получите работая с нами абсолютно бесплатно',
-  'Кому необходимо обучение правилам безопасности и охраны труда?',
-] as const;
-
-/**
- * Полоса-маркера под строкой названия курса: ширина ≈ текст, «размашистый»
- * мазок, неровная кромка через displacement (как на референсе).
- */
-function CourseTitleWithMarker({ nameWithColon }: { nameWithColon: string }) {
-  const filterId = `inc-hl-${useId().replace(/:/g, '')}`;
-
-  return (
-    <span className="relative mx-auto inline-block max-w-[min(100%,30rem)] px-0 pb-[0.45em] text-center leading-tight">
-      <span className="relative z-[1] block whitespace-normal break-words font-headline-lg text-[clamp(1.125rem,2.65vw,1.75rem)] font-bold tracking-[-0.02em] text-black">
-        {nameWithColon}
-      </span>
-      <svg
-        className="pointer-events-none absolute bottom-[0.02em] left-1/2 -z-0 block h-[max(13px,0.62em)] w-[calc(100%+0.5rem)] -translate-x-1/2 md:h-[max(14px,0.58em)]"
-        viewBox="0 0 400 72"
-        preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden
-      >
-        <defs>
-          <filter id={filterId} x="-5%" y="-35%" width="110%" height="170%" colorInterpolationFilters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.1" numOctaves="3" seed="58" result="n" />
-            <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        </defs>
-        <path
-          filter={`url(#${filterId})`}
-          fill={CYAN_ACCENT}
-          opacity="0.94"
-          d="M12 71 L12 55 Q96 47 192 57 T388 52 L388 71 L12 71 Z"
-        />
-      </svg>
-    </span>
-  );
-}
-
-type Props = {
-  course: CourseDetail;
+type CourseIncludesSectionProps = {
+  course: {
+    title: string;
+    includes?: CourseInclude[];
+    includesTitle?: string;
+  };
   courseShortLabel: string;
 };
 
-export default function CourseIncludesSection({ course, courseShortLabel }: Props) {
-  const [openIdx, setOpenIdx] = useState<number | null>(0);
+type IncludeItem = {
+  title: string;
+  items: string[];
+  icon: string;
+};
 
-  const bodies = buildCourseIncludesBodies(course);
+const DEFAULT_ITEMS: IncludeItem[] = [
+  {
+    title: 'Порядок и сроки проведения обучения',
+    icon: 'schedule',
+    items: [
+      'По развитию общих профессиональных компетенций повторное обучение не требуется',
+      'Малое и микропредпринимательство — не менее 24 академических часов',
+      'Среднее предпринимательство — не менее 40 академических часов',
+      'Крупное предпринимательство — не менее 72 академических часов',
+      'По развитию специальных профессиональных компетенций обучение проводится 1 раз в 3 года',
+      'Малое и микропредпринимательство — не менее 16 академических часов',
+      'Среднее предпринимательство — не менее 24 академических часов',
+      'Крупное предпринимательство — не менее 40 академических часов',
+    ],
+  },
+  {
+    title: 'Что вы получите после прохождения',
+    icon: 'workspace_premium',
+    items: [
+      'Доступ к учебным материалам на онлайн-платформе',
+      'Проверку знаний после прохождения курса',
+      'Подтверждающий документ после успешного завершения',
+      'Историю обучения в личном кабинете компании',
+    ],
+  },
+  {
+    title: 'Кому необходимо пройти обучение',
+    icon: 'groups',
+    items: [
+      'Руководителям организаций и ответственным сотрудникам',
+      'Специалистам по охране труда и безопасности',
+      'Сотрудникам, которым требуется обязательное обучение по направлению',
+      'Компаниям, которые готовятся к проверкам и внутренним аудитам',
+    ],
+  },
+];
 
-  const panelId = (i: number) => `course-includes-panel-${course.slug}-${i}`;
+function normalizeTextToItems(text?: string) {
+  if (!text) return [];
 
-  const toggle = (i: number) => {
-    setOpenIdx((cur) => (cur === i ? null : i));
-  };
+  return text
+    .split(/\n|•|;/)
+    .map((item) => item.replace(/^[-–—]\s*/, '').trim())
+    .filter(Boolean);
+}
+
+function getIconByIndex(index: number) {
+  const icons = [
+    'schedule',
+    'workspace_premium',
+    'groups',
+    'fact_check',
+    'description',
+    'verified_user',
+  ];
+
+  return icons[index] ?? 'fact_check';
+}
+
+export default function CourseIncludesSection({
+  course,
+  courseShortLabel,
+}: CourseIncludesSectionProps) {
+  const items = useMemo<IncludeItem[]>(() => {
+    if (!course.includes?.length) return DEFAULT_ITEMS;
+
+    return course.includes.map((item, index) => ({
+      title: item.title,
+      icon: getIconByIndex(index),
+      items: item.items?.length
+        ? item.items
+        : normalizeTextToItems(item.body || item.text),
+    }));
+  }, [course.includes]);
+
+  const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section
-      className="course-includes-section w-full bg-[#eaf2f9] py-16 md:py-section-padding"
-      aria-labelledby={`course-includes-heading-${course.slug}`}
-    >
-      <div className="mx-auto max-w-[640px] px-gutter">
-        <h2 id={`course-includes-heading-${course.slug}`} className="mx-auto mb-10 flex flex-col items-center text-center leading-tight">
-          <span className="mb-3 block font-headline-lg text-[clamp(1.125rem,2.55vw,1.75rem)] font-bold tracking-[-0.02em] text-black">
-            Что включают в себя курсы
-          </span>
-          <CourseTitleWithMarker nameWithColon={`${courseShortLabel}:`} />
-        </h2>
+    <section className="relative w-full overflow-hidden bg-surface-container-low py-section-padding">
+      {/* Background */}
+      <div
+        aria-hidden
+        className="dot-grid pointer-events-none absolute inset-0 opacity-25"
+      />
 
-        <ul className="course-includes-list flex flex-col gap-4 [list-style:none] [padding-inline-start:0]">
-          {COURSE_INCLUDES_ACCORDION_TITLES.map((title, i) => {
-            const expanded = openIdx === i;
-            const body = bodies[i] ?? [];
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-32 right-1/4 h-[420px] w-[520px] rounded-full bg-secondary-fixed-dim/20 blur-[140px]"
+      />
 
-            return (
-              <li key={title}>
-                <div className="overflow-hidden rounded-[32px] bg-white shadow-[0_14px_44px_-30px_rgba(15,30,48,0.32)] ring-1 ring-black/[0.04]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-32 left-1/4 h-[420px] w-[620px] rounded-full bg-primary-fixed/25 blur-[150px]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1500px] px-margin-mobile md:px-margin-desktop xl:px-8">
+        {/* Header */}
+        <div className="mb-10 text-center md:mb-12">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary-fixed/45 px-4 py-2 text-[12px] font-semibold text-primary">
+            <span className="material-symbols-outlined text-[17px]">
+              checklist
+            </span>
+            Состав курса
+          </div>
+
+          <h2 className="mx-auto max-w-5xl text-[34px] font-extrabold leading-[1.04] tracking-tight text-on-background md:text-[54px] lg:text-[64px]">
+            Что включают в себя курсы{' '}
+            <BlobAccent>{courseShortLabel}:</BlobAccent>
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-3xl text-[16px] leading-[1.7] text-on-surface-variant md:text-[18px]">
+            Внутри курса собраны материалы, проверка знаний и подтверждающие
+            документы, чтобы компания могла закрыть обучение без ручной рутины.
+          </p>
+        </div>
+
+        {/* Accordion shell */}
+        <div className="relative overflow-hidden rounded-[2.75rem] border border-outline-variant/45 bg-surface-container-lowest/75 p-4 shadow-sm backdrop-blur md:p-5 lg:p-6">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[520px] rounded-full bg-secondary-fixed-dim/18 blur-[140px]"
+          />
+
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-32 -left-32 h-[420px] w-[560px] rounded-full bg-primary-fixed/20 blur-[150px]"
+          />
+
+          <div className="relative z-10 grid gap-5">
+            {items.map((item, index) => {
+              const isOpen = openIndex === index;
+
+              return (
+                <article
+                  key={item.title}
+                  className={`overflow-hidden rounded-[2rem] border transition-all duration-300 ${
+                    isOpen
+                      ? 'border-primary/25 bg-surface shadow-[0_24px_70px_-38px_rgba(0,30,44,0.35)]'
+                      : 'border-outline-variant/35 bg-surface/75 hover:border-primary/25 hover:bg-surface-container-lowest'
+                  }`}
+                >
                   <button
                     type="button"
-                    aria-expanded={expanded}
-                    aria-controls={panelId(i)}
-                    id={`course-includes-trigger-${course.slug}-${i}`}
-                    className="flex min-h-[3.75rem] w-full cursor-pointer items-start justify-between gap-4 px-8 py-[1.15rem] text-left outline-none md:gap-8 md:px-10 md:py-6"
-                    onClick={() => toggle(i)}
+                    onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                    className="flex w-full items-center justify-between gap-5 p-5 text-left md:p-7"
+                    aria-expanded={isOpen}
                   >
-                    <span className="max-w-[calc(100%-2.65rem)] font-headline-md text-[clamp(0.9375rem,2vw,1rem)] font-bold leading-snug tracking-[-0.012em] text-black">
-                      {title}
-                    </span>
+                    <div className="flex min-w-0 items-center gap-4">
+                      <span
+                        className={`flex h-13 w-13 shrink-0 items-center justify-center rounded-2xl transition-colors ${
+                          isOpen
+                            ? 'bg-primary text-on-primary'
+                            : 'bg-primary-fixed text-primary'
+                        }`}
+                      >
+                        <span className="material-symbols-outlined text-[26px]">
+                          {item.icon}
+                        </span>
+                      </span>
+
+                      <div className="min-w-0">
+                        <div className="mb-1 text-[10px] font-bold uppercase tracking-[0.22em] text-on-surface-variant">
+                          Раздел {String(index + 1).padStart(2, '0')}
+                        </div>
+
+                        <h3 className="text-[20px] font-extrabold leading-snug text-on-background md:text-[28px]">
+                          {item.title}
+                        </h3>
+                      </div>
+                    </div>
+
                     <span
-                      className="flex h-9 w-9 shrink-0 select-none items-center justify-center pb-0.5 font-light tracking-tight text-[27px] leading-none text-[#39C7F3] md:text-[29px]"
-                      aria-hidden
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-all ${
+                        isOpen
+                          ? 'rotate-45 border-primary/20 bg-primary text-on-primary'
+                          : 'border-outline-variant/45 bg-surface-container-low text-primary'
+                      }`}
                     >
-                      {expanded ? '\u00D7' : '+'}
+                      <span className="material-symbols-outlined text-[28px]">
+                        add
+                      </span>
                     </span>
                   </button>
 
-                  {expanded ? (
-                    <div
-                      id={panelId(i)}
-                      role="region"
-                      aria-labelledby={`course-includes-trigger-${course.slug}-${i}`}
-                      className="px-8 pb-6 md:px-10 md:pb-8"
-                    >
-                      <div className="border-t border-black/[0.065] px-1 pt-4 md:pt-5">
-                        <div className="font-body-md space-y-3 text-[0.9375rem] font-normal leading-[1.6] tracking-[-0.01em] text-[#414751]">
-                          {body.map((p, j) => (
-                            <p key={`${course.slug}-inc-${i}-${j}`}>{p}</p>
+                  <div
+                    className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="border-t border-outline-variant/35 px-5 pb-6 pt-5 md:px-7 md:pb-7">
+                        <div className="grid gap-3 md:grid-cols-2">
+                          {item.items.map((point) => (
+                            <div
+                              key={point}
+                              className="flex items-start gap-3 rounded-2xl border border-outline-variant/35 bg-surface-container-low/70 p-4"
+                            >
+                              <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-on-primary">
+                                <span className="material-symbols-outlined text-[17px]">
+                                  check
+                                </span>
+                              </span>
+
+                              <p className="text-[14px] font-medium leading-relaxed text-on-surface-variant md:text-[15px]">
+                                {point}
+                              </p>
+                            </div>
                           ))}
                         </div>
                       </div>
                     </div>
-                  ) : null}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Bottom note */}
+          <div className="relative z-10 mt-5 grid gap-4 rounded-[2rem] border border-primary/20 bg-primary-fixed/35 p-5 md:grid-cols-[1fr_auto] md:items-center md:p-6">
+            <div>
+              <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+                Главное
+              </div>
+
+              <h3 className="max-w-3xl text-[20px] font-extrabold leading-tight text-on-background md:text-[26px]">
+                Курс помогает пройти обучение онлайн, подтвердить знания и
+                получить документы в одном личном кабинете
+              </h3>
+            </div>
+
+            <a href="#cta-final" className="btn-premium btn-premium--accent w-fit">
+              Записаться
+              <span className="material-symbols-outlined text-[18px]">
+                arrow_forward
+              </span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

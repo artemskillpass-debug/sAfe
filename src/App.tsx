@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider, ScrollRestoration } from 'react-router-dom';
 import Index from './Index';
 import CourseDetailPage from './pages/CourseDetailPage';
+import LoginPage from './pages/LoginPage';
 
 function RootLayout() {
   return (
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Index /> },
       { path: 'courses/:slug', element: <CourseDetailPage /> },
+      { path: 'login', element: <LoginPage /> },
     ],
   },
 ]);

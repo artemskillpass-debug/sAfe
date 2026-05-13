@@ -20,6 +20,7 @@ export function CoursesDirectionsRibbon() {
         <p className="text-on-surface-variant font-label-sm text-label-sm mb-2.5 hidden font-semibold uppercase tracking-wider lg:block">
           Направления обучения
         </p>
+
         <ul className="grid list-none gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 [padding-inline-start:0] [grid-auto-rows:1fr]">
           {HEADER_COURSES_NAV.map(({ title, href, slug }) => (
             <li key={slug} className="min-h-0 min-w-0">
@@ -43,7 +44,7 @@ export function CoursesDirectionsRibbon() {
 /**
  * Премиум-шапка лендинга SkillPass.
  * — Sticky с переходом «прозрачная → glassmorphism» при скролле.
- * — Логотип с mark, ровный navigation, акцентная CTA-кнопка.
+ * — Логотип с mark, ровный navigation, кнопка входа и акцентная CTA-кнопка.
  */
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -51,8 +52,10 @@ export default function Header() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
+
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
+
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -75,13 +78,17 @@ export default function Header() {
             className="bg-primary text-on-primary relative inline-flex h-10 w-10 items-center justify-center rounded-xl shadow-[0_8px_18px_-6px_rgba(0,102,138,0.5)] transition-transform group-hover:rotate-[6deg]"
             aria-hidden
           >
-            <span className="material-symbols-outlined text-[22px]">verified</span>
+            <span className="material-symbols-outlined text-[22px]">
+              verified
+            </span>
             <span className="bg-secondary-fixed-dim absolute -right-1 -top-1 h-3 w-3 rounded-full ring-2 ring-surface" />
           </span>
+
           <span className="flex flex-col leading-none">
             <span className="font-headline-md text-on-background text-[20px] font-extrabold tracking-tight">
               SkillPass<span className="text-primary">.kz</span>
             </span>
+
             <span className="eyebrow mt-1 text-[10px] tracking-[0.22em] before:hidden text-on-surface-variant">
               Safety platform
             </span>
@@ -106,18 +113,25 @@ export default function Header() {
 
         {/* Right cluster */}
         <div className="flex items-center gap-3">
-          <a
-            href="tel:+770000000000"
-            className="text-on-surface-variant hover:text-primary hidden items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-lowest/70 px-3 py-2 text-[13px] font-medium transition-colors backdrop-blur-sm xl:inline-flex"
+          <Link
+            to="/login"
+            className="border-outline-variant/60 bg-surface-container-lowest/70 text-on-surface hover:border-primary/40 hover:bg-primary-fixed/45 hover:text-primary hidden items-center gap-2 rounded-full border px-4 py-2.5 text-[14px] font-bold transition-colors backdrop-blur-sm md:inline-flex"
           >
-            <span className="material-symbols-outlined text-[18px]">call</span>
-            +7 700 000 0000
-          </a>
+            <span className="material-symbols-outlined text-[18px]">
+              login
+            </span>
+            Войти
+          </Link>
 
-          <button type="button" className="btn-premium btn-premium--accent text-[14px] px-5 py-2.5">
-            Получить демо
-            <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-          </button>
+          <a
+            href="#cta-final"
+            className="btn-premium btn-premium--accent text-[14px] px-5 py-2.5"
+          >
+            Запросить демо
+            <span className="material-symbols-outlined text-[18px]">
+              arrow_forward
+            </span>
+          </a>
 
           <button
             type="button"
@@ -155,7 +169,31 @@ export default function Header() {
                   </a>
                 </li>
               ))}
+
+              <li>
+                <Link
+                  to="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-on-surface flex items-center justify-between py-3 text-[15px] font-semibold"
+                >
+                  Войти
+                  <span className="material-symbols-outlined text-on-surface-variant text-[20px]">
+                    login
+                  </span>
+                </Link>
+              </li>
             </ul>
+
+            <a
+              href="#cta-final"
+              onClick={() => setMobileOpen(false)}
+              className="btn-premium btn-premium--accent mt-4 w-full justify-center text-[14px]"
+            >
+              Запросить демо
+              <span className="material-symbols-outlined text-[18px]">
+                arrow_forward
+              </span>
+            </a>
           </nav>
         </div>
       ) : null}

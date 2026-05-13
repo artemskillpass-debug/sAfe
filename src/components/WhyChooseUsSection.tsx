@@ -1,3 +1,5 @@
+'use client';
+
 import BlobAccent from './BlobAccent';
 
 const BENEFITS: {
@@ -7,43 +9,56 @@ const BENEFITS: {
   badge?: string;
 }[] = [
   {
+    icon: 'verified_user',
+    title: 'Закрываем требования надзора',
+    text: 'SkillPass помогает компаниям организовать обязательное обучение сотрудников и держать подтверждающие документы в порядке.',
+    badge: 'Контроль требований',
+  },
+  {
+    icon: 'fact_check',
+    title: 'Прозрачный процесс обучения',
+    text: 'Ответственный сотрудник видит, кому назначено обучение, кто проходит курс, а кто уже завершил программу.',
+    badge: 'Статусы в кабинете',
+  },
+  {
     icon: 'workspace_premium',
-    title: 'Международная аккредитация',
-    text: 'Услуги сертифицированы международными стандартами. Подтверждается регистрационным номером IA № 0337 и аттестатом № KZ49VEK00016534 на право работ в области промышленной безопасности.',
-    badge: 'IA № 0337',
+    title: 'Документы после прохождения',
+    text: 'Сертификаты, протоколы и история обучения сохраняются в системе, чтобы их было удобно найти при необходимости.',
+    badge: 'Сертификаты и протоколы',
   },
   {
-    icon: 'emoji_events',
-    title: 'Соответствие ISO',
-    text: 'Программы обучения и экспертизы соответствуют СТ РК ИСО 9001-2016, СТ РК ИСО 14001-2016 и СТ РК OHSAS 18001-2008 — это гарантирует качество и надёжность процессов.',
-    badge: 'ISO 9001/14001',
-  },
-  {
-    icon: 'tips_and_updates',
-    title: 'Снижение рисков',
-    text: 'Эффективные решения для снижения рисков на производстве, улучшения операционной устойчивости и обеспечения безопасной работы предприятия каждый день.',
-    badge: '−42% инцидентов',
-  },
-  {
-    icon: 'groups',
-    title: 'Сильная команда экспертов',
-    text: 'Специалисты с многолетним опытом в охране труда, ПБ и кибербезопасности. Каждый эксперт прошёл собственную аттестацию и регулярные стажировки.',
-    badge: '15+ лет опыта',
+    icon: 'support_agent',
+    title: 'Поддержка на каждом этапе',
+    text: 'Команда помогает настроить процесс, разобраться с направлениями обучения и быстро подключить сотрудников.',
+    badge: 'Помощь бизнесу',
   },
 ];
 
-/**
- * «Почему выбирают нас?» — editorial-блок с золотым сечением.
- * Слева 38.2%: крупный заголовок + большая числовая метрика + сертификат-карточка.
- * Справа 61.8%: сетка 2×2 преимуществ с пронумерованными карточками.
- */
+const TRUST_STEPS = [
+  {
+    number: '01',
+    title: 'Назначили',
+    text: 'выдали курсы',
+  },
+  {
+    number: '02',
+    title: 'Проверили',
+    text: 'увидели статусы',
+  },
+  {
+    number: '03',
+    title: 'Получили',
+    text: 'документы',
+  },
+];
+
 export default function WhyChooseUsSection() {
   return (
     <section
       id="pochemu-my"
       className="surface-immersive relative w-full overflow-hidden py-section-padding text-white"
     >
-      {/* Декоративные элементы */}
+      {/* Background */}
       <div
         aria-hidden
         className="pointer-events-none absolute -right-32 -top-32 h-[460px] w-[460px] rounded-full bg-secondary-fixed-dim/15 blur-[120px]"
@@ -51,6 +66,10 @@ export default function WhyChooseUsSection() {
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-32 -left-32 h-[460px] w-[460px] rounded-full bg-primary-fixed/15 blur-[120px]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-white/[0.035] blur-[110px]"
       />
       <div
         aria-hidden
@@ -62,141 +81,203 @@ export default function WhyChooseUsSection() {
         }}
       />
 
-      <div className="max-w-container-max relative z-10 mx-auto px-margin-mobile md:px-margin-desktop">
-        {/* Section header */}
-        <div className="mb-14 flex items-center justify-between gap-6 md:mb-16">
-          <span className="section-index text-primary-fixed-dim">
-            03 / Преимущества
-          </span>
-          <span
-            aria-hidden
-            className="hairline hidden flex-1 sm:block opacity-50"
-          />
-          <span className="eyebrow text-secondary-fixed-dim before:hidden">
-            Trust · Proof · People
+      <div className="relative z-10 mx-auto max-w-container-max px-margin-mobile md:px-margin-desktop">
+        {/* Section top */}
+        <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-4">
+            <span className="section-index text-primary-fixed-dim">
+              03 / Преимущества
+            </span>
+            <span
+              aria-hidden
+              className="hairline hidden w-28 opacity-50 sm:block"
+            />
+          </div>
+
+          <span className="eyebrow w-fit rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-secondary-fixed-dim before:hidden">
+            Trust · Education · Documents
           </span>
         </div>
 
-        <div
-          className="grid-golden-reverse items-start"
-          style={{ ['--golden-gap' as string]: '4rem' }}
-        >
-          {/* LEFT (38.2%): крупный титул + KPI */}
-          <div className="flex flex-col gap-8">
-            <div>
-              <h2 className="font-display-xl text-white leading-[1.05] tracking-tight max-md:text-[clamp(2rem,7vw,2.75rem)]">
-                <span className="block font-extrabold">Почему</span>
-                <span className="text-secondary-fixed-dim font-medium italic">
-                  выбирают
-                </span>
-                <span className="block font-extrabold">
-                  именно <BlobAccent variant="alt" onDark>нас?</BlobAccent>
-                </span>
-              </h2>
-              <p className="text-white/70 mt-6 max-w-md text-[16px] leading-[1.7]">
-                Четыре опоры, на которых стоит работа SkillPass.kz: законность,
-                стандарты, результат и команда, которая всегда рядом.
-              </p>
-            </div>
+        {/* Main layout */}
+        <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch">
+          {/* Left panel */}
+          <div className="relative h-full overflow-hidden rounded-[2.25rem] border border-white/15 bg-gradient-to-br from-white/[0.09] via-white/[0.045] to-white/[0.02] p-6 backdrop-blur-md md:p-8">
+            <div
+              aria-hidden
+              className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-secondary-fixed-dim/20 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-primary-fixed/10 blur-3xl"
+            />
 
-            {/* Большой KPI блок */}
-            <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/[0.04] p-7 backdrop-blur-md">
-              <div className="text-white/55 mb-3 text-[11px] font-semibold uppercase tracking-[0.22em]">
-                Внутренний рейтинг качества
-              </div>
-              <div className="flex items-end gap-3">
-                <span className="display-number text-white text-[88px] leading-none md:text-[104px]">
-                  98
-                </span>
-                <span className="text-secondary-fixed-dim mb-3 text-[28px] font-bold leading-none">
-                  .5%
-                </span>
-              </div>
-              <div className="text-white/80 mt-3 max-w-[28ch] text-[14px] leading-snug">
-                клиентов рекомендуют SkillPass коллегам после первого года работы.
-              </div>
-              <div
-                aria-hidden
-                className="bg-secondary-fixed-dim/40 absolute -bottom-12 -right-12 h-40 w-40 rounded-full blur-3xl"
-              />
-            </div>
+            <div className="relative z-10 flex h-full flex-col justify-between">
+              <div>
+                <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-secondary-fixed-dim/25 bg-secondary-fixed-dim/10 px-4 py-2 text-[12px] font-semibold text-secondary-fixed-dim">
+                  <span className="material-symbols-outlined text-[17px]">
+                    admin_panel_settings
+                  </span>
+                  Доверие к процессу обучения
+                </div>
 
-            {/* Сертификат-карточка (премиум, без фоновой фотки) */}
-            <a
-              href="#sertifikat-obrazec"
-              className="group border-white/15 bg-gradient-to-br from-white/[0.08] to-white/[0.02] hover:border-secondary-fixed-dim/60 flex items-center gap-4 rounded-3xl border p-5 transition-all"
-            >
-              <span className="bg-secondary-container text-on-secondary-container inline-flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl shadow-md">
-                <span className="material-symbols-outlined text-[28px]">
-                  workspace_premium
-                </span>
-              </span>
-              <div className="min-w-0 flex-grow leading-snug">
-                <div className="text-white/55 text-[10px] font-semibold uppercase tracking-[0.22em]">
-                  После обучения
+                <h2 className="max-w-3xl text-[30px] font-extrabold leading-[1.03] tracking-tight text-white md:text-[42px] lg:text-[48px]">
+                  <span className="block">Обязательное обучение</span>
+
+                  <span className="block font-medium italic text-secondary-fixed-dim">
+                    без хаоса и ручного
+                  </span>
+
+                  <span className="block">
+                    <BlobAccent variant="alt" onDark>
+                      контроля
+                    </BlobAccent>
+                  </span>
+                </h2>
+
+                <p className="mt-5 max-w-xl text-[15px] leading-[1.6] text-white/70 md:text-[16px]">
+                  SkillPass помогает назначать курсы, отслеживать прохождение,
+                  хранить документы и быстрее готовиться к проверкам.
+                </p>
+              </div>
+
+              {/* Compact process card */}
+              <div className="mt-7 rounded-[1.75rem] border border-white/12 bg-black/10 p-4 backdrop-blur-sm md:p-5">
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <div>
+                    <div className="mb-1 text-[9px] font-semibold uppercase tracking-[0.22em] text-white/45">
+                      Логика платформы
+                    </div>
+
+                    <h3 className="text-[17px] font-bold leading-tight text-white md:text-[18px]">
+                      От курса до документа
+                    </h3>
+                  </div>
+
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-secondary-container text-on-secondary-container shadow-md">
+                    <span className="material-symbols-outlined text-[23px]">
+                      route
+                    </span>
+                  </div>
                 </div>
-                <div className="text-white mt-1 text-[15px] font-bold">
-                  Бессрочный сертификат + протокол
+
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {TRUST_STEPS.map((step) => (
+                    <div
+                      key={step.title}
+                      className="rounded-2xl border border-white/10 bg-white/[0.045] p-3 transition hover:border-secondary-fixed-dim/35 hover:bg-white/[0.07]"
+                    >
+                      <span className="display-number block text-[24px] leading-none text-secondary-fixed-dim">
+                        {step.number}
+                      </span>
+
+                      <p className="mt-2 text-[12px] font-bold leading-snug text-white">
+                        {step.title}
+                      </p>
+
+                      <p className="mt-1 text-[11px] leading-snug text-white/50">
+                        {step.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.045] p-3">
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary-container text-on-secondary-container shadow-md">
+                    <span className="material-symbols-outlined text-[22px]">
+                      description
+                    </span>
+                  </span>
+
+                  <div className="min-w-0">
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/45">
+                      После обучения
+                    </div>
+
+                    <div className="mt-0.5 text-[13px] font-bold leading-snug text-white">
+                      документы доступны в личном кабинете
+                    </div>
+                  </div>
                 </div>
               </div>
-              <span className="material-symbols-outlined text-white/70 group-hover:text-secondary-fixed-dim text-[22px] transition-colors">
-                north_east
-              </span>
-            </a>
+            </div>
           </div>
 
-          {/* RIGHT (61.8%): сетка преимуществ */}
-          <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
+          {/* Right proof list */}
+          <div className="flex h-full flex-col gap-4">
             {BENEFITS.map(({ icon, title, text, badge }, i) => (
               <article
                 key={title}
-                className="group border-white/15 bg-white/[0.045] hover:border-secondary-fixed-dim/45 hover:bg-white/[0.07] relative overflow-hidden rounded-3xl border p-7 backdrop-blur-md transition-all"
+                className="group relative flex-1 overflow-hidden rounded-[1.75rem] border border-white/15 bg-white/[0.045] p-5 backdrop-blur-md transition-all hover:-translate-y-1 hover:border-secondary-fixed-dim/45 hover:bg-white/[0.075] md:p-6"
               >
-                {/* Hover-glow */}
                 <div
                   aria-hidden
-                  className="bg-secondary-fixed-dim/15 pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
+                  className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-secondary-fixed-dim/15 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
                 />
 
-                <div className="mb-6 flex items-start justify-between">
-                  <span className="bg-secondary-container text-on-secondary-container inline-flex h-12 w-12 items-center justify-center rounded-2xl shadow-md">
-                    <span className="material-symbols-outlined text-[24px]">
-                      {icon}
+                <div
+                  aria-hidden
+                  className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-secondary-fixed-dim/35 to-transparent opacity-0 transition group-hover:opacity-100"
+                />
+
+                <div className="relative z-10 flex h-full gap-5">
+                  <div className="flex flex-col items-center gap-3">
+                    <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-secondary-container text-on-secondary-container shadow-md">
+                      <span className="material-symbols-outlined text-[24px]">
+                        {icon}
+                      </span>
                     </span>
-                  </span>
-                  <span className="text-white/45 display-number text-[36px] leading-none">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
+
+                    <span className="display-number text-[32px] leading-none text-white/25">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-3 flex flex-wrap items-center gap-3">
+                      <h3 className="font-headline-md text-[19px] leading-snug text-white md:text-[20px]">
+                        {title}
+                      </h3>
+
+                      {badge ? (
+                        <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/80">
+                          <span className="inline-block h-1.5 w-1.5 rounded-full bg-secondary-fixed-dim" />
+                          {badge}
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <p className="max-w-2xl text-[13px] leading-[1.65] text-white/68 md:text-[14px]">
+                      {text}
+                    </p>
+                  </div>
                 </div>
-
-                <h3 className="font-headline-md text-white mb-3 text-[20px] leading-snug">
-                  {title}
-                </h3>
-                <p className="text-white/70 mb-5 text-[14px] leading-[1.65]">
-                  {text}
-                </p>
-
-                {badge ? (
-                  <span className="bg-white/10 text-white/85 border-white/10 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-wider">
-                    <span className="bg-secondary-fixed-dim inline-block h-1.5 w-1.5 rounded-full" />
-                    {badge}
-                  </span>
-                ) : null}
               </article>
             ))}
+
+            {/* CTA */}
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-secondary-fixed-dim/25 bg-secondary-fixed-dim/10 p-5 backdrop-blur-md md:p-6">
+              <div
+                aria-hidden
+                className="absolute -right-16 -bottom-16 h-48 w-48 rounded-full bg-secondary-fixed-dim/20 blur-3xl"
+              />
+
+              <div className="relative z-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-secondary-fixed-dim">
+                    Итог
+                  </div>
+
+                  <h3 className="max-w-lg text-[20px] font-bold leading-tight text-white md:text-[22px]">
+                    меньше ручного контроля, больше порядка в обучении и
+                    документах
+                  </h3>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Scroll-to-top FAB */}
-      <button
-        type="button"
-        className="bg-secondary-container text-on-secondary-container hover:brightness-110 border-on-primary-container/25 fixed right-5 bottom-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border shadow-lg transition-[filter,transform] active:scale-95 md:right-8 md:bottom-8"
-        aria-label="Наверх страницы"
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      >
-        <span className="material-symbols-outlined text-[24px]">arrow_upward</span>
-      </button>
     </section>
   );
 }
