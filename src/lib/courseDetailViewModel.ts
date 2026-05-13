@@ -17,8 +17,9 @@ export type CoursePageViewModel = {
   certificateParagraph: string;
 };
 
-const FALLBACK_HERO =
-  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=85&auto=format&fit=crop';
+// Если у курса не задан heroImage в src/data/courseAssets.ts —
+// в UI покажется аккуратный плейсхолдер, а не битая картинка.
+const FALLBACK_HERO = '';
 
 function splitTitle(title: string): { h: string; r: string } {
   const andIdx = title.indexOf(' и ');
@@ -115,7 +116,7 @@ export function buildCoursePageViewModel(c: CourseDetail): CoursePageViewModel {
     heroLead: ex.heroLead ?? c.intro[0] ?? c.teaser,
     heroSecond: c.intro[1],
     heroChecks,
-    heroImage: ex.heroImage ?? FALLBACK_HERO,
+    heroImage: ex.heroImage && ex.heroImage.trim() ? ex.heroImage : FALLBACK_HERO,
     audienceTitle: ex.audienceTitle ?? 'Кому будет полезен курс?',
     audienceIntro:
       ex.audienceIntro ??

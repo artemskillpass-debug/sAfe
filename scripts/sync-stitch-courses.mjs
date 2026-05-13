@@ -154,11 +154,9 @@ function parseStitchHtml(html, slug) {
     if (t) heroChecks.push(t);
   });
 
-  let heroImage = '';
-  hero.find('img[src]').each((_, el) => {
-    const src = $(el).attr('src') || '';
-    if (src.startsWith('http') && !heroImage) heroImage = src;
-  });
+  // heroImage намеренно не выгружаем из Stitch.
+  // URL картинок для героя задаются вручную в src/data/courseAssets.ts.
+  const heroImage = '';
 
   const audienceSection = $('h2')
     .filter((_, el) => {
@@ -431,7 +429,7 @@ function parseStitchHtml(html, slug) {
     badges,
     heroLead: intro[0] || programIntro || title,
     heroChecks: heroChecks.length ? heroChecks : undefined,
-    heroImage: heroImage || undefined,
+    heroImage: '',
     audienceTitle,
     audienceIntro: audienceIntro || undefined,
     audienceCards: audienceCards.length ? audienceCards : undefined,

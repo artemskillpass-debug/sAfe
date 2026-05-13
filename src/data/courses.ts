@@ -1,3 +1,4 @@
+import { getCourseHeroImage } from './courseAssets';
 import { STITCH_COURSE_PATCHES } from './stitchCoursePatches.generated';
 
 export type CourseModule = {
@@ -120,6 +121,7 @@ function patchToCourse(slug: string): CourseDetail {
     format: { ...DEFAULT_FORMAT },
     expand: {
       ...patch.expand,
+      heroImage: getCourseHeroImage(slug),
       heroChecks:
         'heroChecks' in patch.expand && patch.expand.heroChecks
           ? [...patch.expand.heroChecks]

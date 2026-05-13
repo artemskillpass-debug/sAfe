@@ -39,7 +39,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Training on preventing corruption risks and compliance with internal standards. Develop a robust framework to safeguard your organization's integrity and reputation in accordance with legal requirements.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuBP-ONnJM7NZti3piRk5alMIRpxQEGn9Yk5v-xHLAPw1gRi_DRz0aJ6OVQ7MICGwb6DS9EjCOBmgmhXkxYmc8V-HaTYoxCGXwT9fDCSc-ETRPrrpZfpMGtup0maHi-iyA-7IuPy9aryCgcswoMC1d1_8z5whTdoNx17Dme6b_OR1s9HXGoMokxoLWOpVRe2pzc8_Gp9yUovVTW7jJlFMJbNFJa4lyS9i2MiW8EPs6MOajJfNM3DStqeuC_lJRX_m7GRmu53Nal_JyG_",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Training on preventing corruption risks and compliance with internal standards. Develop a robust framework to safeguard your organization's integrity and reputation in accordance with legal requirements.",
       "audienceCards": [
@@ -138,7 +138,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Preparation of personnel and objects for anti-terrorism security requirements. Master threat detection and emergency response protocols.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDFTXNUxF8WweFQdK1qsLWVZ3Ttncdo4tUhbmM51IjC5E64B-cr5wqU5dQhWM5qSEl0_LXh5oosrQvMHP56Eoh8Qs0bJ9EfEM7XWKqS_v106Mrj8Hd7B2x73CnRrpjlZywbBR7EscaEqUrgnHd0p7quzZpZoNx1h1t6DGrDVbVfNOcBSBeN2Gu5ud6HcxzTnHDoZjDVCxIA8GUvRZ9u7B12Dy8H10-v-Wgb2ll831EkPILtI6zezG8qDGMfO_zq2kz4kzVaLihe5f1R",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Preparation of personnel and objects for anti-terrorism security requirements. Master threat detection and emergency response protocols.",
       "audienceCards": [
@@ -250,7 +250,7 @@ export const STITCH_COURSE_PATCHES = {
         "Готов к проверкам МТСЗН РК",
         "Доступ сразу после оплаты"
       ],
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuAWLpNs9zZ8f77yIMTlCIe_BXk2DHajY-u_KxinT9LG_GL6_Jx2dV-RTtoqfOx5cSJZ_tyPzXY25ysBdlLAxCqe9OU-Gg2pIN8Czi5P9Nx0d-InODeZIrEwnKCj4ldiaKYktfxMaZ7D_lDghZ1eIuh-a5qpcj3LsGAZpfNycX9EDcAskDEtnjBXNmNH1xTXPz25Pp2MbTwxujiZARui7ve-xo3ebDe9HtnvS4C0YCM2lclKAB_zoXhyc72rWXOfS5c4D90usEf91YQ2",
+      "heroImage": "",
       "audienceTitle": "Кому необходимо обучение?",
       "audienceIntro": "Согласно Трудовому кодексу РК, обучение по БиОТ является обязательным для определенных категорий сотрудников.",
       "audienceCards": [
@@ -366,7 +366,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Creating a safe, respectful, and healthy work environment. Equip your team with the psychological tools and conflict resolution strategies necessary to maintain high corporate ethics and prevent workplace harassment.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDd7Oh5XzIazJz1ubA6WaKxSj2-7v47rAuIrV05xxsgsL_x3Miy2bsYa8CYB8YKpRwRmWyRJ0CiM-xABAgV59gXflPkh4tp2Eozn3nK5RAh27YmE5NqonOhQtQRxcy1hu8wAF629zQE_lXmsyuE2bI3Hps5riWwjGhs9W8QQKVHrnKG4VJ2zWcWX2Ak8thtpnuI1DjQgu4xMzjWfFQyyGPliFj4C4VWn5STfYJURl56jiiwo25oFDgdUPTvs4xtWUFHCrjE5MjUQGO3",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Creating a safe, respectful, and healthy work environment. Equip your team with the psychological tools and conflict resolution strategies necessary to maintain high corporate ethics and prevent workplace harassment.",
       "audienceCards": [
@@ -465,7 +465,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Preparing employees for decisive action in emergency and crisis situations. Comprehensive training covering essential protocols to ensure safety and organizational resilience.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuBb2YeQW-fayBGjSTt2XORodP2uVFS_W5zDAEJw_IsEY0yOsSFZficjNX-MPR9wwN6TWWYYz6ocJqNgLFtjV_l6MMsw-owlmMKHujVFWZooeyjFiKF2fEkDfckEhhwpqe2KHco6VzhoznEQ_yQcTeQXBsH7MpdfacVb-Dufe0aj5eQTEOvkkiTVl6C_3KxOGUT1Q_loG8QcntEloGpZqytca-ju7RA35ASNOKdmL1OxxOQ8DXeBNLL1SqMlhEEs6YzT-OArejTzQE57",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Preparing employees for decisive action in emergency and crisis situations. Comprehensive training covering essential protocols to ensure safety and organizational resilience.",
       "audienceCards": [
@@ -570,7 +570,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Principles of an accessible environment and correct interaction with different groups of people. A comprehensive guide to building empathy, understanding social norms, and ensuring technical accessibility in the modern workplace.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDBIsEe4Obe6FburGbo72xuZOcp1GgOj9W-dLSBACOi5uL9j6KZvylV8_HzmYQFRhOmEEnlm29motxaij_Ck5c1E0y9yWDEc6iDUHN3mlAxSZR-OhzQfJUy1HDm_ldKpvHfvxZdMt9ay-ZjOfM6wa_2mmC3dd1RTajhHPg8yFytqwR9mJ9cnqvm_NymcGksiuFt0arV2biZ3qJoRsjxJwTqsgwjdu_xY1Gl1TjaV9ki2HB-gkePc9Hm-fdYTIkP4r86NbAfXAWnwwOB",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Principles of an accessible environment and correct interaction with different groups of people. A comprehensive guide to building empathy, understanding social norms, and ensuring technical accessibility in the modern workplace.",
       "audienceCards": [
@@ -676,7 +676,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Digital hygiene, data protection, and reducing information risks. Protect yourself and your organization from modern digital threats with practical, actionable protocols.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDUJSp77NsyXxTw-fy9SZCtoqwY5HTfwHU_TRo6F2tb9-eW34uN-A_pW1tHjUJmlXmZu0Z_DPnl3B04k3P9gXflhVm7Y74Tt654yaM2MZv5xATkprrEc18JpT9fl2OxlQiyikmYmj5Nl0XvaKMIhQ6bVaezUf5k5ZljxEuM-RVcLC5WdIoGgjouSkflStKFvL2pY2zFYuSsFli_DVkeJiH4bhx9UHXA5adyiZSmYOU8-G7UzWoBevEDZH4mIf8cuGgLb9wka7SI7f3h",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Digital hygiene, data protection, and reducing information risks. Protect yourself and your organization from modern digital threats with practical, actionable protocols.",
       "audienceCards": [
@@ -774,7 +774,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Basic first aid skills and actions before specialists arrive. Essential training for immediate response in critical situations.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuCpsL5tWwtbcp-wF1Z6gcyvYTSi02JhJo5u4wEWKO1aOqN0AvLGkCNp7L3Aqeae6fWNSHb6Z2QhUFZPAykXJaDm4NsclmYhwuE2t6dDsfzv6gReni3hvwbPzAs1DZXkMBPLZ45ynT5cWqvd7Baeiad25cz4ZdI1gjv69AG1L-N5vAa5zZNXcLU46MQEiZTLFJ2m1Lex0ukFswJeaQ7b4Cg9Y_IbPXj-1qEBWJKeeMMO-7jF92VoNNxSMppJDJ8-UQMuT0eq0DSfu6pl",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Basic first aid skills and actions before specialists arrive. Essential training for immediate response in critical situations.",
       "audienceCards": [
@@ -862,7 +862,7 @@ export const STITCH_COURSE_PATCHES = {
     "expand": {
       "badges": [],
       "heroLead": "Mandatory knowledge of fire safety, prevention, and actions during a fire. Ensure workplace compliance and safety readiness with our comprehensive certification program.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuA0p7AoVoG6l9sQYy4-vkqnvqRodAuxXpRAGhpCh24c6nad5YjuLHjQ-wKx8qA4a0A1RvuMC5w8PLBIuqV8eJKLqWd9biT-Phd-F3n_KBbupduypT0PcnSojWnyOtC4St_41Eg58shiHocmWyfcFcANTVUYdYXIJ6M2exETkR-Ub4vEFjDcyISOI26eG20OGx3fEwWtyywsdFqAvjqdWgaJRf5V4uwEqe2ZBLuB2OQB-0FnCfpSUo-tgbKAtfOv7DvAQgbqPcXMUlP7",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Mandatory knowledge of fire safety, prevention, and actions during a fire. Ensure workplace compliance and safety readiness with our comprehensive certification program.",
       "audienceCards": [
@@ -948,7 +948,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Comprehensive safety requirements for production and hazardous facilities. Master industrial regulations, equipment safety, and risk assessment to ensure a secure working environment.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuAz-BTFDVVlGxsOg4bb0JSTOLlf-MflYcye_ra8qljNRKBGK_Zi031yhbJiiVbCNsdEwRA2Ui0TlUER47eXfN3cAb-4AC-ohJrBlwEWXuTBGhC8jKt585aYleA73ib6WBdCnR7b-1HsP88BCEn8A6uiVuCnZRb5r0g6HGWLdzNdkeUPrL-M8ZIF8sE4EBFtklBQANE-cpDACerrPrYETxLiZHPKFRRB5nK42705-c7Wi196fcwjALSyoA_LSx60313mlprbyuizF8au",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Comprehensive safety requirements for production and hazardous facilities. Master industrial regulations, equipment safety, and risk assessment to ensure a secure working environment.",
       "audienceCards": [
@@ -1039,7 +1039,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Sanitary norms, risk prevention, and safe environment requirements for modern corporate and industrial settings.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuAogqgAPLePLfKlVmgpX4v0OYFfC22NS55bu8aFoSV6GMGsI8xScYORAzTWM7OYpoFXNxZFlfL27wZWnBG7nZDnnOJ6mR-mOKhZLL0vp-Hj5wRQYxSQN_NA0JjxUUcBxnw7fOG1EBLlDVRMWI8msFweUJsoWj7uo6ej04DoPxt4gjsIMzrYQbEAreT8dl8kn4nhdOLD8jomMji1uSYcJJVXbl_8CoHuVhCkGWvXFujHsd1qgmt7CIAK9T5EC_UJ_XTvi7lHNEu2Er_O",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Sanitary norms, risk prevention, and safe environment requirements for modern corporate and industrial settings.",
       "audienceCards": [
@@ -1142,7 +1142,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Comprehensive training on the fundamentals of labor dispute resolution, internal procedures, and effective negotiation within the legal framework of the Republic of Kazakhstan. Equip your team with the skills to maintain harmonious workplace relations.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuBHd28N8rb1TcOIcxIVTImzHMA9QkT3x-0oGA-IT2aFgZGU4VD9wTxEKaDEYdyrz9yB5XhOCQ9mwvopjja5NEhsdRBWtOk24m4DT5NuRTKgV3jBcRSePGz6Uiedyc4kriO29I_oLRq-NV5buqO99StFvOn550hhPSnjLgyxECcr1SeoWIQR0YrrKQ-f-DChkyfEaakayH6w_lendE_-7RIWrFRi7fl7LVxlufdjomF04oZ6ZQ4_J67jIXIhvo8JJHw5VV6si1_1xuFB",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Comprehensive training on the fundamentals of labor dispute resolution, internal procedures, and effective negotiation within the legal framework of the Republic of Kazakhstan. Equip your team with the skills to maintain harmonious workplace relations.",
       "audienceCards": [
@@ -1240,7 +1240,7 @@ export const STITCH_COURSE_PATCHES = {
         }
       ],
       "heroLead": "Rules for safe work with electrical installations and risks. Master the critical protocols, identify hazards, and ensure compliance with industry safety standards.",
-      "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuBjJ0Zaq_xBv31Ko6bDCaobqri1PhFwPuED50dUoCVYcVfHv_RrGvnlIZd87aQzDJtKxtDh_T265BSn_Wj1XudhCtskEXrWI_23VhLOz9PELA66F5dK-WqV_7ZKe6o3ydMWymn4DRAJnQH_Z2hPfBfYMDT4P0T7qvjRYgiCRXlc2IoXWfIhaV6Y2oLszLUUmUEoK-4i-eJHVQXUb42H4DtaG0V2L2bTyXmJCp9HavbQMhfP2vXMJWjGgAnk-fOu0LXDPYaQ5Ef_F_WY",
+      "heroImage": "",
       "audienceTitle": "Кому будет полезен курс?",
       "audienceIntro": "Rules for safe work with electrical installations and risks. Master the critical protocols, identify hazards, and ensure compliance with industry safety standards.",
       "audienceCards": [

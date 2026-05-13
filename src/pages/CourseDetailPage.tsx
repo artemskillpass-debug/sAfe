@@ -248,11 +248,25 @@ export default function CourseDetailPage() {
                     </div>
 
                     <div className="relative mb-5 overflow-hidden rounded-[2rem] border border-outline-variant/40 bg-surface-container-low/70">
-                      <img
-                        src={vm.heroImage}
-                        alt=""
-                        className="aspect-[16/9] w-full object-cover"
-                      />
+                      {vm.heroImage ? (
+                        <img
+                          src={vm.heroImage}
+                          alt=""
+                          className="aspect-[16/9] w-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="flex aspect-[16/9] w-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary-fixed/60 via-surface-container-low to-secondary-fixed-dim/40 text-on-surface-variant"
+                          aria-label="Изображение курса не задано"
+                        >
+                          <span className="material-symbols-outlined text-[40px] opacity-70" aria-hidden>
+                            image
+                          </span>
+                          <span className="text-[12px] font-semibold uppercase tracking-wider opacity-70">
+                            Добавьте картинку в courseAssets.ts
+                          </span>
+                        </div>
+                      )}
 
                       <div
                         className="absolute inset-0 bg-gradient-to-t from-on-background/55 via-transparent to-transparent"
