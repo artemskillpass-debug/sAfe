@@ -1,0 +1,370 @@
+@import 'tailwindcss';
+@config '../tailwind.config.ts';
+
+/* Material Symbols — как в макете Stitch */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  -webkit-font-smoothing: antialiased;
+}
+
+.fill-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ----- Появление карточек курсов при раскрытии списка ----- */
+@keyframes courses-card-reveal {
+  from {
+    opacity: 0.45;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes megapanel-open {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-megapanel-open {
+  animation: megapanel-open 0.22s ease-out forwards;
+}
+
+@keyframes hint-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hint-pop-in {
+  animation: hint-pop-in 0.35s ease-out forwards;
+}
+
+/* ----- Course detail accordions ----- */
+.course-detail-page details > summary {
+  list-style: none;
+}
+.course-detail-page details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* ============================================================
+   Premium / editorial design utilities
+   ============================================================ */
+
+@layer utilities {
+  /* «Золотое сечение»: 38.2% / 61.8% */
+  .grid-golden {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--golden-gap, 2.5rem);
+  }
+  @media (min-width: 1024px) {
+    .grid-golden {
+      grid-template-columns: 61.8fr 38.2fr;
+    }
+    .grid-golden-reverse {
+      grid-template-columns: 38.2fr 61.8fr;
+    }
+  }
+
+  /* Eyebrow-метка над заголовком — журнальный стиль */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #3e484f;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+  }
+
+  /* Декоративный «шильдик» с номером секции */
+  .section-index {
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #00668a;
+  }
+
+  /* Премиум-кнопка с inset highlight */
+  .btn-premium {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.95rem 1.6rem;
+    font-weight: 600;
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.25s ease,
+      background-color 0.2s ease;
+  }
+  .btn-premium--accent {
+    color: #001e2c;
+    background: linear-gradient(180deg, #50cdff 0%, #2ac5ff 55%, #00aaf0 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.55) inset,
+      0 -2px 0 rgba(0, 76, 105, 0.18) inset,
+      0 14px 30px -10px rgba(58, 190, 249, 0.55);
+  }
+  .btn-premium--accent:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 -2px 0 rgba(0, 76, 105, 0.22) inset,
+      0 22px 36px -10px rgba(58, 190, 249, 0.7);
+  }
+  .btn-premium--ghost {
+    color: #00668a;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 102, 138, 0.25);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+  }
+  .btn-premium--ghost:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 102, 138, 0.45);
+    transform: translateY(-1px);
+  }
+  .btn-premium--dark {
+    color: #ffffff;
+    background: linear-gradient(180deg, #003b56 0%, #00253b 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.12) inset,
+      0 12px 24px -10px rgba(0, 30, 44, 0.65);
+  }
+  .btn-premium--dark:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.18) inset,
+      0 18px 32px -10px rgba(0, 30, 44, 0.75);
+  }
+
+  /* Премиум-карточка: тонкий outline + soft elevation */
+  .card-premium {
+    position: relative;
+    border-radius: 1.5rem;
+    background: #ffffff;
+    border: 1px solid rgba(189, 200, 209, 0.55);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 12px 32px -18px rgba(15, 23, 42, 0.18);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.3s ease,
+      border-color 0.25s ease;
+  }
+  .card-premium:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 102, 138, 0.35);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 2px 4px rgba(15, 23, 42, 0.06),
+      0 28px 50px -20px rgba(15, 23, 42, 0.22);
+  }
+
+  /* Тонкая горизонтальная линия-разделитель */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 102, 138, 0.2) 18%,
+      rgba(0, 102, 138, 0.35) 50%,
+      rgba(0, 102, 138, 0.2) 82%,
+      transparent 100%
+    );
+  }
+
+  /* Декоративная dot-grid подложка */
+  .dot-grid {
+    background-image: radial-gradient(rgba(0, 102, 138, 0.18) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: 0 0;
+  }
+
+  /* Премиум градиент-сурфейс для иммерсивных блоков */
+  .surface-immersive {
+    background:
+      radial-gradient(120% 80% at 0% 0%, rgba(58, 190, 249, 0.18) 0%, transparent 60%),
+      radial-gradient(80% 60% at 100% 100%, rgba(0, 102, 138, 0.45) 0%, transparent 65%),
+      linear-gradient(135deg, #001b2a 0%, #00263b 55%, #003b56 100%);
+  }
+
+  /* Бегущая строка-маркетка с ключевыми преимуществами */
+  .ticker-track {
+    display: flex;
+    gap: 3rem;
+    width: max-content;
+    animation: ticker-scroll 40s linear infinite;
+  }
+  @keyframes ticker-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Появление снизу при скролле — пока в режиме «всегда видно» (можно навесить IntersectionObserver) */
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .reveal-up {
+    animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Большие декоративные цифры */
+  .display-number {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+  }
+
+  /* Тонкий вертикальный декоративный коннектор */
+  .v-connector {
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 102, 138, 0.4) 50%,
+      transparent 100%
+    );
+  }
+
+  /* Маска для тонкого fade-out снизу длинных списков */
+  .fade-mask-bottom {
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+  }
+
+  /* ============================================================
+     Blob accent — фигурная подложка под inline-текст
+     ============================================================ */
+  .blob-accent {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+    padding: 0.12em 0.45em 0.18em;
+    color: #001e2c;
+    font-weight: 800;
+  }
+  .blob-accent::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: #3abef9;
+    border-radius: 60% 40% 70% 35% / 50% 70% 35% 60%;
+    transform: rotate(-2deg);
+    box-shadow:
+      0 10px 24px -8px rgba(0, 30, 44, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .blob-accent:hover::before {
+    transform: rotate(2deg) scale(1.02);
+  }
+
+  /* Вариант — наклон в противоположную сторону + другая форма */
+  .blob-accent--alt::before {
+    border-radius: 35% 65% 40% 60% / 60% 35% 65% 40%;
+    transform: rotate(2deg);
+  }
+  .blob-accent--alt:hover::before {
+    transform: rotate(-2deg) scale(1.02);
+  }
+
+  /* Третья форма — для разнообразия (squircle с эксцентриситетом) */
+  .blob-accent--squircle::before {
+    border-radius: 45% 55% 50% 45% / 50% 45% 55% 50%;
+    transform: rotate(-1.5deg);
+  }
+
+  /* Тёмный вариант поверх dark surface — белый текст, тот же голубой блоб */
+  .blob-accent--on-dark {
+    color: #001e2c;
+  }
+  .blob-accent--on-dark::before {
+    box-shadow:
+      0 12px 30px -8px rgba(58, 190, 249, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  /* Outline-вариант — прозрачный блоб с обводкой (для второстепенных акцентов) */
+  .blob-accent--outline {
+    color: #00253b;
+  }
+  .blob-accent--outline::before {
+    background: transparent;
+    border: 2px solid #3abef9;
+    box-shadow: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track,
+    .reveal-up,
+    .hint-pop-in,
+    .animate-megapanel-open {
+      animation: none !important;
+    }
+  }
+}
