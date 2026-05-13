@@ -11,35 +11,10 @@ import {
  * Импорт всех логотипов через Vite glob (eager + default-export).
  * Vite сам подставит правильные хешированные URL в build.
  * --------------------------------------------------------------- */
-const partnerModules = import.meta.glob('../assets/partners/*.webp', {
+const partnerModules = import.meta.glob('../assets/logo/*.png', {
   eager: true,
   import: 'default',
 }) as Record<string, string>;
-
-/** Slug → читаемое имя бренда (для alt-текста и tooltip). */
-const SLUG_TO_NAME: Record<string, string> = {
-  'astana-motors': 'ASTANA MOTORS',
-  magnum: 'Magnum',
-  helios: 'Helios',
-  esentaimall: 'Esentai Mall',
-  globus: 'Globus',
-  wb: 'Wildberries',
-  alibaba: 'Alibaba.com',
-  kinopark: 'KINOPARK',
-  'ufc-gym': 'UFC GYM',
-  atakent: 'Atakent',
-  technodom: 'TECHNODOM',
-  'almaty-towers': 'ALMATY TOWERS',
-  adidas: 'adidas',
-  moskva: 'MOSKVA',
-  gazprom: 'ГАЗПРОМ',
-  'dostar-med': 'Dostar Med',
-  'rahat-palace': 'RAHAT PALACE',
-  promenade: 'PROMENADE',
-  'bi-group': 'BI GROUP',
-  footlab: 'FOOTLAB',
-  technofit: 'TECHNOFIT',
-};
 
 type LogoItem =
   | { src: string; alt: string; href?: string; title?: string }
@@ -47,8 +22,9 @@ type LogoItem =
 
 const PARTNER_LOGOS: LogoItem[] = Object.entries(partnerModules)
   .map(([path, src]) => {
-    const slug = path.split('/').pop()!.replace('.webp', '');
-    return { src, alt: SLUG_TO_NAME[slug] ?? slug } satisfies LogoItem;
+const slug = path.split('/').pop()!.replace('.webp', '');
+const alt = path.split('/').pop()!.replace('.png', '');
+return { src, alt } satisfies LogoItem;
   })
   // Чуть-чуть «перетасуем» — чтобы рядом не стояли бренды одной категории.
   .sort((a, b) => a.alt.localeCompare(b.alt, 'en'));
@@ -325,16 +301,16 @@ export default function PartnersLogoMarquee() {
         </div>
 
         {/* Сам Logo Loop — цветные логотипы, мягкое hover-увеличение */}
-        <LogoLoop
-          logos={PARTNER_LOGOS}
-          speed={50}
-          direction="left"
-          logoHeight={80}
-          gap={96}
-          pauseOnHover
-          fadeOut
-          fadeColor="#f2f4f6"
-        />
+<LogoLoop
+  logos={PARTNER_LOGOS}
+  speed={100}
+  direction="right"
+  logoHeight={100}   // было 80, стало 100
+  gap={120}          // было 96, стало 120
+  pauseOnHover
+  fadeOut
+  fadeColor="#f2f4f6"
+/>
       </div>
     </section>
   );
