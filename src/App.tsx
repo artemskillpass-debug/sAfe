@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import {
   createBrowserRouter,
   Outlet,
@@ -6,8 +7,17 @@ import {
   useLocation,
 } from 'react-router-dom';
 import Index from './Index';
-import CourseDetailPage from './pages/CourseDetailPage';
-import LoginPage from './pages/LoginPage';
+
+const CourseDetailPage = lazy(() => import('./pages/CourseDetailPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+
+/**
+ * Лёгкий fallback на время загрузки code-split чанка.
+ * Не «прыгает» лейаут: занимает min-h-dvh и красится в фон страницы.
+ */
+function RouteFallback() {
+  return <div className="bg-background min-h-dvh" aria-hidden />;
+}
 
 /**
  * Оболочка смены страницы: один «входящий» тик анимации на новый Outlet
@@ -20,7 +30,9 @@ function RootLayout() {
     <>
       <ScrollRestoration />
       <div key={pathname} className="page-transition-root min-h-dvh">
-        <Outlet />
+        <Suspense fallback={<RouteFallback />}>
+          <Outlet />
+        </Suspense>
       </div>
     </>
   );

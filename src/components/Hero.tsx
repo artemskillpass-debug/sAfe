@@ -18,68 +18,76 @@ export default function Hero() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-32 -right-24 h-[520px] w-[520px] rounded-full bg-secondary-fixed-dim/30 blur-[120px]"
+        className="pointer-events-none absolute -top-32 -right-24 h-[520px] w-[520px] rounded-full bg-secondary-fixed-dim/30 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-24 -left-32 h-[420px] w-[420px] rounded-full bg-primary-fixed/40 blur-[120px]"
+        className="pointer-events-none absolute -bottom-24 -left-32 h-[420px] w-[420px] rounded-full bg-primary-fixed/40 blur-3xl"
       />
 
       <div className="max-w-container-max relative z-10 mx-auto px-margin-mobile md:px-margin-desktop">
         {/* Top meta-bar: индекс секции + ticker */}
         <div className="mb-10 flex items-center justify-between gap-6">
           <span className="section-index">01 / Платформа</span>
+
           <div className="hidden flex-1 items-center gap-4 md:flex">
             <span className="hairline flex-1" />
-            <span className="eyebrow before:hidden">Digital Safety · KZ</span>
+            <span className="eyebrow before:hidden">
+              Safety Management · KZ
+            </span>
             <span className="hairline flex-1" />
           </div>
+
           <span className="bg-secondary-container/70 text-on-secondary-container inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wider">
             <span className="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
-            Aккредитовано
+            SaaS-платформа
           </span>
         </div>
 
-        <div className="grid-golden items-center" style={{ ['--golden-gap' as string]: '4rem' }}>
+        <div
+          className="grid-golden items-center"
+          style={{ ['--golden-gap' as string]: '4rem' }}
+        >
           {/* Left: editorial copy */}
           <div className="relative flex max-w-2xl flex-col">
             <span className="eyebrow text-primary mb-6">
-              Цифровая охрана труда · 2026
+              Обучение · журналы · документы · контроль проверок
             </span>
 
             <h1 className="font-display-xl text-on-background mb-7 leading-[1.05] tracking-tight max-md:text-[clamp(2.25rem,9vw,3.25rem)] md:text-[clamp(3rem,5.5vw,4.5rem)]">
-              <span className="block font-extrabold">Цифровая</span>
-              <BlobAccent>безопасность</BlobAccent>{' '}
+              <span className="block font-extrabold">Единая</span>
+              <BlobAccent>платформа</BlobAccent>{' '}
               <span className="text-on-surface-variant font-medium italic">
-                и охрана&nbsp;труда
+                для управления
               </span>
               <span className="block font-extrabold">
-                для <BlobAccent variant="alt">бизнеса</BlobAccent>
+                <BlobAccent variant="alt">безопасностью бизнеса</BlobAccent>
               </span>
             </h1>
 
             <p className="font-body-lg text-on-surface-variant mb-9 max-w-xl text-[17px] leading-[1.7]">
-              Автоматизируйте обучение, документы и контроль требований безопасности
-              в&nbsp;одной&nbsp;системе. Подготовьте компанию к&nbsp;проверкам
-              и&nbsp;снизьте риск штрафов.
+              SkillPass объединяет обязательное онлайн-обучение, тестирование,
+              электронные журналы, документы, контроль сроков и подготовку к
+              проверкам. Вся безопасность компании — в одной понятной системе
+              без бумажной рутины и хаоса.
             </p>
 
-            {/* Inline KPI chips */}
+            {/* Product module chips */}
             <ul className="mb-10 grid grid-cols-2 gap-3 [list-style:none] [padding-inline-start:0] sm:grid-cols-4">
               {[
-                { v: '1 500+', l: 'компаний' },
-                { v: '54k', l: 'сертификатов' },
-                { v: '13', l: 'программ' },
-                { v: '98.5%', l: 'соответствие' },
+                { v: 'Обучение', l: 'тесты и сертификаты' },
+                { v: 'Эл. журналы', l: 'контроль прохождения' },
+                { v: 'Документы', l: 'шаблоны и хранение' },
+                { v: 'Проверки', l: 'готовность и сроки' },
               ].map(({ v, l }) => (
                 <li
-                  key={l}
+                  key={v}
                   className="border-outline-variant/55 bg-surface-container-lowest/80 rounded-2xl border px-3 py-2.5 backdrop-blur-sm"
                 >
-                  <div className="font-display-lg text-on-background text-[20px] font-bold leading-none tabular-nums">
+                  <div className="font-display-lg text-on-background text-[18px] font-bold leading-tight">
                     {v}
                   </div>
-                  <div className="text-on-surface-variant mt-1 text-[11px] uppercase tracking-wider">
+                  <div className="text-on-surface-variant mt-1 text-[10px] uppercase leading-snug tracking-wider">
                     {l}
                   </div>
                 </li>
@@ -97,6 +105,7 @@ export default function Hero() {
                   arrow_forward
                 </span>
               </Link>
+
               <button type="button" className="btn-premium btn-premium--ghost">
                 <span className="material-symbols-outlined text-[20px]">
                   play_circle
@@ -104,7 +113,6 @@ export default function Hero() {
                 Смотреть возможности
               </button>
             </div>
-          
           </div>
 
           {/* Right: layered composition card */}
@@ -129,6 +137,7 @@ export default function Hero() {
                       dashboard
                     </span>
                   </span>
+
                   <div className="leading-tight">
                     <div className="text-[12px] font-semibold text-on-background">
                       SkillPass · Admin
@@ -138,23 +147,36 @@ export default function Hero() {
                     </div>
                   </div>
                 </div>
+
                 <div className="flex gap-1.5">
-                  <span aria-hidden className="bg-error h-2.5 w-2.5 rounded-full opacity-70" />
-                  <span aria-hidden className="bg-secondary-container h-2.5 w-2.5 rounded-full opacity-70" />
-                  <span aria-hidden className="bg-primary h-2.5 w-2.5 rounded-full opacity-80" />
+                  <span
+                    aria-hidden
+                    className="bg-error h-2.5 w-2.5 rounded-full opacity-70"
+                  />
+                  <span
+                    aria-hidden
+                    className="bg-secondary-container h-2.5 w-2.5 rounded-full opacity-70"
+                  />
+                  <span
+                    aria-hidden
+                    className="bg-primary h-2.5 w-2.5 rounded-full opacity-80"
+                  />
                 </div>
               </div>
 
               {/* Главный KPI */}
               <div className="mt-5">
                 <div className="text-on-surface-variant text-[11px] uppercase tracking-wider">
-                  Индекс безопасности
+                  Индекс готовности
                 </div>
+
                 <div className="mt-2 flex items-end gap-2">
                   <span className="display-number text-on-background text-[56px]">
                     98.5
                   </span>
-                  <span className="text-primary mb-2 text-[18px] font-bold">%</span>
+                  <span className="text-primary mb-2 text-[18px] font-bold">
+                    %
+                  </span>
                   <span className="bg-secondary-container/40 text-on-secondary-container ml-auto mb-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold">
                     <span className="material-symbols-outlined text-[12px]">
                       trending_up
@@ -162,18 +184,21 @@ export default function Hero() {
                     +4.2
                   </span>
                 </div>
+
                 {/* «график» из баров */}
                 <div className="mt-4 flex h-16 items-end gap-1.5">
-                  {[36, 48, 42, 60, 55, 72, 68, 82, 76, 92, 88, 96].map((v, i) => (
-                    <span
-                      key={i}
-                      aria-hidden
-                      className={`flex-1 rounded-sm ${
-                        i >= 8 ? 'bg-primary' : 'bg-primary/25'
-                      }`}
-                      style={{ height: `${v}%` }}
-                    />
-                  ))}
+                  {[36, 48, 42, 60, 55, 72, 68, 82, 76, 92, 88, 96].map(
+                    (v, i) => (
+                      <span
+                        key={i}
+                        aria-hidden
+                        className={`flex-1 rounded-sm ${
+                          i >= 8 ? 'bg-primary' : 'bg-primary/25'
+                        }`}
+                        style={{ height: `${v}%` }}
+                      />
+                    ),
+                  )}
                 </div>
               </div>
 
@@ -192,6 +217,7 @@ export default function Hero() {
                     100%
                   </div>
                 </div>
+
                 <div className="border-outline-variant/40 rounded-xl border bg-surface-container-low/60 p-3">
                   <div className="text-on-surface-variant text-[10px] uppercase tracking-wider">
                     Просрочено
@@ -215,6 +241,7 @@ export default function Hero() {
                   workspace_premium
                 </span>
               </span>
+
               <div className="leading-tight">
                 <div className="text-on-surface-variant text-[10px] uppercase tracking-wider">
                   Сертификат
@@ -233,7 +260,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
     </section>
   );
 }

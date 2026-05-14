@@ -5,8 +5,8 @@
 :root {
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-snappy: cubic-bezier(0.16, 1, 0.3, 1);
-  --motion-page-enter-duration: 0.4s;
-  --motion-micro-duration: 0.22s;
+  --motion-page-enter-duration: 0.28s;
+  --motion-micro-duration: 0.18s;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,6 +14,39 @@
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
   }
+}
+
+/* ============================================================
+   Performance: глобальные оптимизации отрисовки
+   ============================================================ */
+
+/* Каждое <section> в main — самостоятельная зона отрисовки.
+   Браузер пропускает paint/layout, пока секция вне вьюпорта. */
+main > section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+/* Дорогостоящий backdrop-filter на почти-непрозрачных подложках
+   не даёт визуального эффекта, но убивает скролл. Гасим базовые варианты,
+   оставляя только backdrop-blur-xl (используется в шапке/мегапанели). */
+.backdrop-blur,
+.backdrop-blur-sm,
+.backdrop-blur-md,
+.backdrop-blur-lg {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Изолируем sticky-шапку, плавающие карточки и анимированный тикер
+   в отдельные композитные слои — нет перерасчёта paint при скролле. */
+header[class*='sticky'],
+.ticker-track,
+.flip-card,
+.animate-bounce-slow {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 @keyframes page-transition-in {

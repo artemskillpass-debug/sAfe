@@ -237,10 +237,10 @@ export default function OurCoursesSection() {
             {/* Course grid */}
             <div className="relative">
               <div
-                className={`overflow-hidden transition-[max-height] motion-reduce:transition-none ${
+                className={`relative overflow-hidden transition-[max-height] motion-reduce:transition-none ${
                   fadeRevealed
                     ? 'max-h-[9000px] duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:max-h-none'
-                    : 'max-h-[min(45rem,78vh)] duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:max-h-[min(42rem,76vh)] lg:max-h-[min(38rem,74vh)]'
+                    : 'max-h-[min(38rem,68vh)] duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:max-h-[min(36rem,66vh)] lg:max-h-[min(32rem,62vh)]'
                 }`}
               >
                 <div
@@ -335,48 +335,45 @@ export default function OurCoursesSection() {
                     );
                   })}
                 </div>
-              </div>
 
-              {/* Fade-out */}
-              <div
-                className={`from-surface-container-lowest pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[min(42%,18rem)] bg-gradient-to-t via-surface-container-lowest/92 to-transparent transition-opacity duration-500 ease-out motion-reduce:transition-none ${
-                  fadeRevealed ? 'opacity-0' : 'opacity-100'
-                }`}
-                aria-hidden
-              />
-
-              <div
-                className={`absolute inset-x-0 bottom-0 z-[2] flex flex-col items-center justify-end gap-3 pb-6 pt-16 transition-opacity duration-500 ease-out motion-reduce:transition-none ${
-                  fadeRevealed ? 'pointer-events-none opacity-0' : 'opacity-100'
-                }`}
-              >
-                <div className="border-outline-variant/50 bg-surface-container-lowest/95 text-on-background pointer-events-auto inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] font-semibold shadow-md backdrop-blur-sm">
-                  <span
-                    className="bg-secondary-container/90 text-on-secondary-container flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-bold tabular-nums"
-                    aria-hidden
-                  >
-                    {COURSE_TOTAL}
-                  </span>
-
-                  <span>направлений в каталоге</span>
-                </div>
-
-                <button
-                  type="button"
-                  aria-expanded={fadeRevealed}
-                  onClick={() => setFadeRevealed(true)}
-                  className="btn-premium btn-premium--dark pointer-events-auto px-5 py-2.5 text-[13px]"
-                >
-                  Показать все {COURSE_TOTAL} курсов
-                  <span className="material-symbols-outlined text-[18px]">
-                    expand_more
-                  </span>
-                </button>
+                {/* Fade-out — только внутри клиппера, не лезет на CTA */}
+                <div
+                  className={`from-surface-container-lowest pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[min(35%,14rem)] bg-gradient-to-t via-surface-container-lowest/85 to-transparent transition-opacity duration-500 ease-out motion-reduce:transition-none ${
+                    fadeRevealed ? 'opacity-0' : 'opacity-100'
+                  }`}
+                  aria-hidden
+                />
               </div>
             </div>
 
-            {fadeRevealed ? (
-              <div className="mt-10 flex justify-center">
+            {/* CTA — отдельный блок в потоке, не перекрывает карточки */}
+            <div className="mt-8 flex flex-col items-center gap-3">
+              {!fadeRevealed ? (
+                <>
+                  <div className="border-outline-variant/50 bg-surface-container-lowest text-on-background inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] font-semibold shadow-sm">
+                    <span
+                      className="bg-secondary-container/90 text-on-secondary-container flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-bold tabular-nums"
+                      aria-hidden
+                    >
+                      {COURSE_TOTAL}
+                    </span>
+
+                    <span>направлений в каталоге</span>
+                  </div>
+
+                  <button
+                    type="button"
+                    aria-expanded={fadeRevealed}
+                    onClick={() => setFadeRevealed(true)}
+                    className="btn-premium btn-premium--dark px-5 py-2.5 text-[13px]"
+                  >
+                    Показать все {COURSE_TOTAL} курсов
+                    <span className="material-symbols-outlined text-[18px]">
+                      expand_more
+                    </span>
+                  </button>
+                </>
+              ) : (
                 <button
                   type="button"
                   aria-expanded={fadeRevealed}
@@ -388,8 +385,8 @@ export default function OurCoursesSection() {
                   </span>
                   Свернуть каталог
                 </button>
-              </div>
-            ) : null}
+              )}
+            </div>
           </div>
         </div>
       </div>
