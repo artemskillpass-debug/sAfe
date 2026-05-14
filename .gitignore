@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Vercel
+.vercel
+
 # Временные выгрузки Stitch при отладке парсера
 scripts/_*.html
 
@@ -25,3 +28,5 @@ scripts/_*.html
 *.njsproj
 *.sln
 *.sw?
+
+.vercel

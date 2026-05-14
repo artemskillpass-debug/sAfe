@@ -70,7 +70,7 @@ export default function OurCoursesSection() {
         {/* Section header */}
         <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
-            <span className="section-index">02 / Каталог</span>
+            <span className="section-index">04 / Каталог</span>
             <span className="hairline hidden w-28 opacity-70 sm:block" />
           </div>
 
@@ -206,7 +206,7 @@ export default function OurCoursesSection() {
 
                     <div className="mt-auto pt-5">
                       <a
-                        href="#cta-final"
+                        href="#kursy-katalog"
                         className="btn-premium btn-premium--accent w-full justify-center"
                       >
                         Подобрать курсы
@@ -220,8 +220,11 @@ export default function OurCoursesSection() {
               </div>
             </div>
 
-            {/* Catalog bridge */}
-            <div className="relative my-6 flex items-center justify-center">
+            {/* Catalog bridge — якорь для «Подобрать курсы» */}
+            <div
+              id="kursy-katalog"
+              className="relative my-6 flex scroll-mt-24 items-center justify-center md:scroll-mt-28"
+            >
               <span className="absolute left-0 right-0 top-1/2 h-px bg-outline-variant/50" />
               <div className="relative z-10 inline-flex items-center gap-2 rounded-full border border-outline-variant/50 bg-surface-container-lowest px-4 py-2 text-[12px] font-bold uppercase tracking-[0.18em] text-on-surface-variant shadow-sm">
                 <span className="material-symbols-outlined text-[16px] text-primary">

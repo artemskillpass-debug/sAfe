@@ -91,7 +91,7 @@ export default function LearningFormatSection() {
         {/* Section header */}
         <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
-            <span className="section-index">04 / Формат</span>
+            <span className="section-index">06 / Формат</span>
             <span className="hairline hidden w-28 opacity-70 sm:block" />
           </div>
 
@@ -190,19 +190,16 @@ export default function LearningFormatSection() {
                 </div>
               </div>
 
-              {/* CTA */}
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <button type="button" className="btn-premium btn-premium--accent">
-                  Попробовать платформу
-                  <span className="material-symbols-outlined text-[18px]">
-                    arrow_forward
-                  </span>
-                </button>
-
-                <button type="button" className="btn-premium btn-premium--ghost">
-                  Получить консультацию
-                </button>
-              </div>
+              {/* Soft inline link — без второй «громкой» CTA, чтобы не дублировать главную секцию */}
+              <a
+                href="#cta-final"
+                className="text-primary hover:text-primary/80 group mt-6 inline-flex w-fit items-center gap-2 text-[14px] font-semibold transition-colors"
+              >
+                Узнать, как запустить обучение в вашей компании
+                <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-0.5">
+                  arrow_forward
+                </span>
+              </a>
             </div>
           </div>
 
@@ -415,10 +412,14 @@ export default function LearningFormatSection() {
             </h3>
           </div>
 
-          <a href="#contact" className="btn-premium btn-premium--accent w-fit">
-            Запросить демо
-            <span className="material-symbols-outlined text-[18px]">
-              arrow_forward
+          {/* Лёгкая ссылка-якорь к финальной секции — без дубля акцентной кнопки */}
+          <a
+            href="#cta-final"
+            className="border-outline-variant/60 bg-surface-container-lowest/80 text-on-surface hover:border-primary/45 hover:bg-primary-fixed/40 hover:text-primary group inline-flex w-fit items-center gap-2 rounded-full border px-5 py-2.5 text-[14px] font-semibold transition-colors backdrop-blur-sm"
+          >
+            Готовы начать
+            <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-0.5">
+              arrow_downward
             </span>
           </a>
         </div>

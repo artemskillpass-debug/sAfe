@@ -1,45 +1,98 @@
-export const COURSE_ASSETS: Record<string, { heroImage: string }> = {
-  anticorruption: {
-    heroImage: '/src/assets/cours/антикоррупция.png',
-  },
-  antiterror: {
-    heroImage: '/src/assets/cours/антитеррор (2).png',
-  },
-  'labor-protection': {
-    heroImage: '/src/assets/cours/Безопасность и Охрана Труда.png',
-  },
-  bullying: {
-    heroImage: '/src/assets/cours/буллингарт.png',
-  },
-  'civil-defense': {
-    heroImage: '/src/assets/cours/Гражданнская оборона.png',
-  },
-  inclusivity: {
-    heroImage: '/src/assets/cours/Инклюзивность.png',
-  },
-  cybersecurity: {
-    heroImage: '/src/assets/cours/кибербез.png',
-  },
-  paramedic: {
-    heroImage: '/src/assets/cours/Парамедика.png',
-  },
-  'fire-ptm': {
-    heroImage: '/src/assets/cours/пожарная безопасность.png',
-  },
-  'industrial-safety': {
-    heroImage: '/src/assets/cours/промышленная безопасность .png',
-  },
-  'sanitary-epidemiological': {
-    heroImage: '/src/assets/cours/СЭЗ (2).png',
-  },
-  conciliation: {
-    heroImage: '/src/assets/cours/Согласительная коммисия.png',
-  },
-  electrical: {
-    heroImage: '/src/assets/cours/Электробезопасность.png',
-  },
+/**
+
+ * Изображения героя курса: только WebP из src/assets/cours/
+
+ * (генерируются командой npm run optimize:assets из исходных PNG/JPEG).
+
+ */
+
+const coursModules = import.meta.glob('../assets/cours/*.webp', {
+
+  eager: true,
+
+  import: 'default',
+
+}) as Record<string, string>;
+
+
+
+/** slug курса → имя файла без расширения (как в папке cours) */
+
+const SLUG_TO_FILE_STEM: Record<string, string> = {
+
+  anticorruption: 'антикоррупция',
+
+  antiterror: 'антитеррор (2)',
+
+  'labor-protection': 'Безопасность и Охрана Труда',
+
+  bullying: 'буллингарт',
+
+  'civil-defense': 'Гражданнская оборона',
+
+  inclusivity: 'Инклюзивность',
+
+  cybersecurity: 'кибербез',
+
+  paramedic: 'Парамедика',
+
+  'fire-ptm': 'пожарная безопасность',
+
+  'industrial-safety': 'промышленная безопасность ',
+
+  'sanitary-epidemiological': 'СЭЗ (2)',
+
+  conciliation: 'Согласительная коммисия',
+
+  electrical: 'Электробезопасность',
+
 };
 
-export function getCourseHeroImage(slug: string): string {
-  return COURSE_ASSETS[slug]?.heroImage?.trim() ?? '';
+
+
+function stemFromCoursPath(assetPath: string): string {
+
+  const file = assetPath.split(/[/\\]/).pop() ?? '';
+
+  return file.replace(/\.webp$/i, '');
+
 }
+
+
+
+const heroUrlByStem = (() => {
+
+  const m = new Map<string, string>();
+
+  for (const [p, url] of Object.entries(coursModules)) {
+
+    m.set(stemFromCoursPath(p), url);
+
+  }
+
+  return m;
+
+})();
+
+
+
+export const COURSE_ASSETS: Record<string, { heroImage: string }> = Object.fromEntries(
+
+  Object.entries(SLUG_TO_FILE_STEM).map(([slug, stem]) => {
+
+    const url = heroUrlByStem.get(stem) ?? '';
+
+    return [slug, { heroImage: url }];
+
+  }),
+
+) as Record<string, { heroImage: string }>;
+
+
+
+export function getCourseHeroImage(slug: string): string {
+
+  return COURSE_ASSETS[slug]?.heroImage?.trim() ?? '';
+
+}
+

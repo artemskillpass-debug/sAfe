@@ -86,7 +86,7 @@ export default function WhyChooseUsSection() {
         <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
             <span className="section-index text-primary-fixed-dim">
-              03 / Преимущества
+              05 / Преимущества
             </span>
             <span
               aria-hidden

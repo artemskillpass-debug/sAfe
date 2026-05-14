@@ -252,7 +252,12 @@ export default function CourseDetailPage() {
                         <img
                           src={vm.heroImage}
                           alt=""
+                          width={1440}
+                          height={810}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 800px"
                           className="aspect-[16/9] w-full object-cover"
+                          decoding="async"
+                          fetchPriority="high"
                         />
                       ) : (
                         <div

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { HEADER_COURSES_NAV } from '../data/courses';
 
 const NAV_LINKS: { label: string; href: string }[] = [
+  { label: 'Решение', href: '#reshenie' },
   { label: 'Курсы', href: '#nashi-kursy' },
   { label: 'Преимущества', href: '#pochemu-my' },
   { label: 'Формат', href: '#format-obucheniya' },
@@ -75,7 +76,7 @@ export default function Header() {
           aria-label="SkillPass.kz — на главную"
         >
           <span
-            className="bg-primary text-on-primary relative inline-flex h-10 w-10 items-center justify-center rounded-xl shadow-[0_8px_18px_-6px_rgba(0,102,138,0.5)] transition-transform group-hover:rotate-[6deg]"
+            className="bg-primary text-on-primary relative inline-flex h-10 w-10 items-center justify-center rounded-xl shadow-[0_8px_18px_-6px_rgba(0,102,138,0.5)] duration-300 ease-out transition-transform group-hover:rotate-[6deg]"
             aria-hidden
           >
             <span className="material-symbols-outlined text-[22px]">
@@ -104,7 +105,7 @@ export default function Header() {
             <a
               key={href}
               href={href}
-              className="text-on-surface hover:text-primary relative rounded-full px-4 py-2 text-[14px] font-semibold transition-colors after:absolute after:bottom-1 after:left-1/2 after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all hover:after:w-5"
+              className="text-on-surface hover:text-primary relative rounded-full px-4 py-2 text-[14px] font-semibold duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] transition-[color] after:absolute after:bottom-1 after:left-1/2 after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-[width] after:duration-300 after:ease-[cubic-bezier(0.22,1,0.36,1)] hover:after:w-5"
             >
               {label}
             </a>

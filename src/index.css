@@ -1,6 +1,37 @@
 @import 'tailwindcss';
 @config '../tailwind.config.ts';
 
+/* ---------- Плавность: токены, якорный скролл, переход между страницами ---------- */
+:root {
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-page-enter-duration: 0.4s;
+  --motion-micro-duration: 0.22s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+}
+
+@keyframes page-transition-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.page-transition-root {
+  animation: page-transition-in var(--motion-page-enter-duration) var(--ease-out-soft)
+    both;
+}
+
 /* Material Symbols — как в макете Stitch */
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
@@ -38,7 +69,7 @@
 @keyframes megapanel-open {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -47,7 +78,7 @@
 }
 
 .animate-megapanel-open {
-  animation: megapanel-open 0.22s ease-out forwards;
+  animation: megapanel-open 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes hint-pop-in {
@@ -141,9 +172,10 @@
     padding: 0.95rem 1.6rem;
     font-weight: 600;
     transition:
-      transform 0.18s ease,
-      box-shadow 0.25s ease,
-      background-color 0.2s ease;
+      transform var(--motion-micro-duration) var(--ease-out-snappy),
+      box-shadow 0.28s var(--ease-out-soft),
+      background-color var(--motion-micro-duration) var(--ease-out-soft),
+      color var(--motion-micro-duration) ease;
   }
   .btn-premium--accent {
     color: #001e2c;
@@ -197,9 +229,9 @@
       0 1px 2px rgba(15, 23, 42, 0.04),
       0 12px 32px -18px rgba(15, 23, 42, 0.18);
     transition:
-      transform 0.25s ease,
-      box-shadow 0.3s ease,
-      border-color 0.25s ease;
+      transform 0.3s var(--ease-out-soft),
+      box-shadow 0.35s var(--ease-out-soft),
+      border-color var(--motion-micro-duration) var(--ease-out-soft);
   }
   .card-premium:hover {
     transform: translateY(-3px);
@@ -318,7 +350,7 @@
     box-shadow:
       0 10px 24px -8px rgba(0, 30, 44, 0.28),
       inset 0 1px 0 rgba(255, 255, 255, 0.35);
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.45s var(--ease-out-soft);
   }
   .blob-accent:hover::before {
     transform: rotate(2deg) scale(1.02);
@@ -389,11 +421,6 @@
     inset: 0;
     transform: rotateY(180deg);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .flip-card {
-      transition: none;
-    }
-  }
 
   /* ============================================================
      Премиум-поля ввода (login / demo формы)
@@ -438,11 +465,35 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .page-transition-root {
+      animation: none !important;
+    }
+    @keyframes courses-card-reveal {
+      from,
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     .ticker-track,
     .reveal-up,
     .hint-pop-in,
-    .animate-megapanel-open {
+    .animate-megapanel-open,
+    .animate-bounce-slow {
       animation: none !important;
+    }
+    .blob-accent::before {
+      transition: none !important;
+    }
+    .flip-card {
+      transition: none;
+    }
+    .field-input {
+      transition-property: none;
+    }
+    .btn-premium,
+    .card-premium {
+      transition-duration: 0.01ms;
     }
   }
 }

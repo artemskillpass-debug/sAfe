@@ -7,7 +7,7 @@ import {
   type FormEvent,
   type ReactNode,
 } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import BlobAccent from '../components/BlobAccent';
 import Header from '../components/Header';
 import LandingFooter from '../components/LandingFooter';
@@ -158,6 +158,7 @@ function validateDemo(
  * --------------------------------------------------------------- */
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { hash } = useLocation();
   const [isFlipped, setIsFlipped] = useState(false);
 
   // login state
@@ -186,6 +187,14 @@ export default function LoginPage() {
       ? 'Запросить демо · SkillPass.kz'
       : 'Вход · SkillPass.kz';
   }, [isFlipped]);
+
+  /* Ссылки с лендинга: /login#demo — сразу показать карточку «Запросить демо» */
+  useEffect(() => {
+    const raw = hash.replace(/^#/, '');
+    if (raw === 'demo' || raw === 'zaprosit-demo') {
+      setIsFlipped(true);
+    }
+  }, [hash]);
 
   /* установка фокуса на первое поле активной стороны после переворота */
   useEffect(() => {

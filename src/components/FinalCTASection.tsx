@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import BlobAccent from './BlobAccent';
 
 const CONTACTS = [
@@ -61,7 +62,7 @@ export default function FinalCTASection() {
   return (
     <section
       id="cta-final"
-      className="bg-surface relative w-full overflow-hidden py-section-padding"
+      className="bg-surface relative w-full scroll-mt-24 overflow-hidden py-section-padding md:scroll-mt-28"
     >
       <div className="relative z-10 mx-auto w-full max-w-[1500px] px-margin-mobile md:px-margin-desktop xl:px-8">
         <div className="surface-immersive relative overflow-hidden rounded-[2.5rem] px-6 py-12 text-white md:px-10 md:py-16 lg:px-14 lg:py-18 xl:px-16">
@@ -143,15 +144,15 @@ export default function FinalCTASection() {
 
               {/* CTA buttons */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href="#contact"
+                <Link
+                  to="/login#demo"
                   className="btn-premium btn-premium--accent text-[15px]"
                 >
                   Запросить демо
                   <span className="material-symbols-outlined text-[20px]">
                     arrow_forward
                   </span>
-                </a>
+                </Link>
 
                 <a
                   href="#format-obucheniya"
@@ -339,28 +340,25 @@ export default function FinalCTASection() {
             </div>
           </div>
 
-          {/* Bottom strip */}
-          <div className="relative z-10 mt-8 grid gap-4 rounded-[2rem] border border-white/15 bg-white/[0.055] p-5 backdrop-blur-sm md:grid-cols-[1fr_auto] md:items-center md:p-6">
-            <div>
-              <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-secondary-fixed-dim">
-                Итог
+          {/* Bottom strip — только итог, без повторной CTA (главный CTA выше) */}
+          <div className="relative z-10 mt-8 rounded-[2rem] border border-white/15 bg-white/[0.055] p-5 backdrop-blur-sm md:p-6">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-secondary-fixed-dim">
+                  Итог
+                </div>
+
+                <h3 className="max-w-4xl text-[22px] font-extrabold leading-tight text-white md:text-[28px]">
+                  SkillPass помогает запустить онлайн-обучение сотрудников без
+                  ручного хаоса, бумажной рутины и потери контроля
+                </h3>
               </div>
 
-              <h3 className="max-w-4xl text-[22px] font-extrabold leading-tight text-white md:text-[28px]">
-                SkillPass помогает запустить онлайн-обучение сотрудников без
-                ручного хаоса, бумажной рутины и потери контроля
-              </h3>
+              <div className="flex shrink-0 items-center gap-3 text-[13px] font-semibold uppercase tracking-[0.18em] text-secondary-fixed-dim">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-secondary-fixed-dim" />
+                Старт за 1 день
+              </div>
             </div>
-
-            <a
-              href="#contact"
-              className="btn-premium btn-premium--accent w-fit text-[15px]"
-            >
-              Запросить демо
-              <span className="material-symbols-outlined text-[20px]">
-                arrow_forward
-              </span>
-            </a>
           </div>
         </div>
       </div>

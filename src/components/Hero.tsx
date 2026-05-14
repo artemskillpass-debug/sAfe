@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import BlobAccent from './BlobAccent';
 
 /**
@@ -87,12 +88,15 @@ export default function Hero() {
 
             {/* CTA row */}
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <button type="button" className="btn-premium btn-premium--accent">
-              Запросить демо
+              <Link
+                to="/login#demo"
+                className="btn-premium btn-premium--accent"
+              >
+                Запросить демо
                 <span className="material-symbols-outlined text-[20px]">
                   arrow_forward
                 </span>
-              </button>
+              </Link>
               <button type="button" className="btn-premium btn-premium--ghost">
                 <span className="material-symbols-outlined text-[20px]">
                   play_circle
