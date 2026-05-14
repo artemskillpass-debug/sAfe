@@ -1,19 +1,19 @@
 import { getCourseHeroImage } from './courseAssets';
-import { STITCH_COURSE_PATCHES } from './stitchCoursePatches.generated';
+import { COURSES_CONTENT } from './coursesContent';
 
 export type CourseModule = {
   title: string;
   duration: string;
 };
 
-/** Раскрывающийся блок программы (как в Stitch «Расширенная»). */
+/** Раскрывающийся блок программы курса (аккордеон). */
 export type CourseAccordionModule = {
   code: string;
   title: string;
   bullets: string[];
 };
 
-/** Дополнительные блоки лендинга курса (Stitch «Детальная информация о курсе (Расширенная)»). */
+/** Дополнительные блоки лендинга курса. */
 export type CourseExpanded = {
   badges?: { label: string; icon?: string; variant: 'primary' | 'neutral' }[];
   heroLead?: string;
@@ -48,7 +48,7 @@ export type CourseDetail = {
   program: CourseModule[];
   /** Две колонки «Формат обучения» */
   format: { left: string; right: string };
-  /** Расширенный макет Stitch (необязательно). */
+  /** Расширенные блоки страницы курса. */
   expand?: CourseExpanded;
 };
 
@@ -57,34 +57,6 @@ const DEFAULT_FORMAT: CourseDetail['format'] = {
     'Онлайн-формат SkillPass: учебные материалы, тесты и прогресс в личном кабинете сотрудника и администратора.',
   right:
     'Гибкий график прохождения, подтверждение результата и возможность выгрузки данных для кадрового учёта.',
-};
-
-/** Краткое описание в каталоге (рус.). Контент страницы курса — из Stitch, см. stitchCoursePatches.generated.ts */
-const TEASERS: Record<string, string> = {
-  anticorruption:
-    'Комплаенс, стандарты и практика предотвращения коррупционных рисков в организации…',
-  antiterror:
-    'Требования законодательства, меры защиты объектов и поведение персонала при угрозах…',
-  'labor-protection':
-    'Инструктажи, аттестация рабочих мест, СИЗ и документооборот по ОТ в одном контуре…',
-  bullying: 'Профилактика токсичной среды, реагирование и корпоративная культура уважения…',
-  'civil-defense': 'ГО, оповещение населения, запас прочности объектов и действия при ЧС…',
-  inclusivity:
-    'Равные возможности, коммуникация и адаптация рабочих процессов для всех сотрудников…',
-  cybersecurity:
-    'Фишинг, пароли, утечки данных и базовые правила защиты корпоративной инфраструктуры…',
-  paramedic:
-    'Первая помощь на производстве и в офисе: алгоритмы до приезда скорой помощи…',
-  'fire-ptm':
-    'ПТМ для персонала: огнетушители, эвакуация, средства пожаротушения и инструктажи…',
-  'industrial-safety':
-    'Опасные производственные объекты, допуски и контроль соблюдения норм ПБ…',
-  'sanitary-epidemiological':
-    'Режимы, гигиена, инфекционный контроль и требования надзорных органов…',
-  conciliation:
-    'Работа СК: досудебное урегулирование споров и снижение числа трудовых конфликтов…',
-  electrical:
-    'Допуски, работы под напряжением и безопасная эксплуатация электроустановок…',
 };
 
 const SLUG_ORDER = [
@@ -103,61 +75,62 @@ const SLUG_ORDER = [
   'electrical',
 ] as const;
 
-function patchToCourse(slug: string): CourseDetail {
-  const patch = STITCH_COURSE_PATCHES[slug as keyof typeof STITCH_COURSE_PATCHES];
-  if (!patch) throw new Error(`Нет выгрузки Stitch для slug «${slug}». Запустите: npm run sync:stitch`);
-
-  const teaser = TEASERS[slug];
-  if (!teaser) throw new Error(`Нет teaser для «${slug}»`);
+function buildCourse(slug: string): CourseDetail {
+  const content = COURSES_CONTENT[slug];
+  if (!content) {
+    throw new Error(`Нет контента курса для slug «${slug}». Добавьте запись в src/data/coursesContent.ts.`);
+  }
 
   return {
     slug,
-    teaser,
-    title: patch.title,
-    intro: [...patch.intro],
-    forWhom: { left: patch.forWhom.left, right: patch.forWhom.right },
-    learnPoints: [...patch.learnPoints],
-    program: patch.program.map((m) => ({ ...m })),
+    title: content.title,
+    teaser: content.teaser,
+    intro: [...content.intro],
+    forWhom: { left: content.forWhom.left, right: content.forWhom.right },
+    learnPoints: [...content.learnPoints],
+    program: content.program.map((m) => ({ ...m })),
     format: { ...DEFAULT_FORMAT },
     expand: {
-      ...patch.expand,
+      badges: content.expand.badges.map((b) => ({ ...b })),
+      heroLead: content.expand.heroLead,
+      heroChecks: [...content.expand.heroChecks],
       heroImage: getCourseHeroImage(slug),
-      heroChecks:
-        'heroChecks' in patch.expand && patch.expand.heroChecks
-          ? [...patch.expand.heroChecks]
-          : undefined,
-      badges: patch.expand.badges?.map((b) => {
-        const badge: { label: string; variant: 'primary' | 'neutral'; icon?: string } = {
-          label: b.label,
-          variant: b.variant as 'primary' | 'neutral',
-        };
-        if ('icon' in b && b.icon !== undefined) badge.icon = b.icon;
-        return badge;
-      }),
-      audienceCards: patch.expand.audienceCards?.map((c) => ({ ...c })),
-      programHighlights: patch.expand.programHighlights?.map((h) => ({ ...h })),
-      accordion: patch.expand.accordion?.map((a) => ({
+      audienceTitle: content.expand.audienceTitle,
+      audienceIntro: content.expand.audienceIntro,
+      audienceCards: content.expand.audienceCards.map((c) => ({ ...c })),
+      programIntro: content.expand.programIntro,
+      programHighlights: content.expand.programHighlights.map((h) => ({ ...h })),
+      accordion: content.expand.accordion.map((a) => ({
         ...a,
         bullets: [...a.bullets],
       })),
+      certificateParagraph: content.expand.certificateParagraph,
+      includesBlock: {
+        orderAndTerms: [...content.expand.includesBlock.orderAndTerms],
+        perks: [...content.expand.includesBlock.perks],
+        whoNeedsTraining: [...content.expand.includesBlock.whoNeedsTraining],
+      },
     },
   };
 }
 
-export const COURSES_DETAIL: CourseDetail[] = SLUG_ORDER.map((slug) => patchToCourse(slug));
+export const COURSES_DETAIL: CourseDetail[] = SLUG_ORDER.map((slug) => buildCourse(slug));
 
 export function getCourseBySlug(slug: string | undefined): CourseDetail | undefined {
   if (!slug) return undefined;
   return COURSES_DETAIL.find((c) => c.slug === slug);
 }
 
-export const COURSE_CARDS = COURSES_DETAIL.filter((c) => c.slug !== 'electrical').map(({ slug, title, teaser }) => ({
-  slug,
-  title,
-  teaser,
-}));
+/** Карточки курсов на главной (без «electrical» — это 13-й курс, доступен по прямой ссылке). */
+export const COURSE_CARDS = COURSES_DETAIL.filter((c) => c.slug !== 'electrical').map(
+  ({ slug, title, teaser }) => ({
+    slug,
+    title,
+    teaser,
+  }),
+);
 
-/** Порядок и иконки для мега-меню «Курсы» в шапке */
+/** Порядок и иконки для мега-меню «Курсы» в шапке. */
 const ICONS: Record<string, string> = {
   anticorruption: 'policy',
   antiterror: 'shield_person',
