@@ -8,7 +8,7 @@ import PlatformSolutionSection from './components/PlatformSolutionSection';
 import ControlDashboardSection from './components/ControlDashboardSection';
 import ForWhomSection from './components/ForWhomSection';
 import LandingFooter from './components/LandingFooter';
-import WhyChooseUsSection from './components/WhyChooseUsSection';
+// import WhyChooseUsSection from './components/WhyChooseUsSection';
 import FinalCTASection from './components/FinalCTASection';
 import CompanyRequirementsMockupSection from './components/CompanyRequirementsMockupSection';
 
@@ -25,7 +25,7 @@ export default function Index() {
         <ControlDashboardSection />
         <ForWhomSection />
         <OurCoursesSection />
-        <WhyChooseUsSection />
+        {/* <WhyChooseUsSection /> */}
         <LearningFormatSection />
         <FinalCTASection />
       </main>
