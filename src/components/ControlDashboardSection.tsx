@@ -56,31 +56,36 @@ const ROWS: EmployeeRow[] = [
 
 const STATUS_META: Record<
   Status,
-  { label: string; pill: string; dot: string; bar: string }
+  { label: string; pill: string; dot: string; bar: string; icon?: string }
 > = {
   done: {
     label: 'Завершено',
-    pill: 'bg-primary text-on-primary',
-    dot: 'bg-on-primary',
-    bar: 'bg-primary',
+    pill:
+      'border border-emerald-400/35 bg-emerald-500/15 text-emerald-700 shadow-[0_0_0_1px_rgba(16,185,129,0.08),0_10px_22px_-14px_rgba(16,185,129,0.85)]',
+    dot: 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.85)]',
+    bar: 'bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.55)]',
   },
   'in-progress': {
     label: 'В процессе',
-    pill: 'bg-primary-fixed text-primary',
-    dot: 'bg-primary',
-    bar: 'bg-primary/85',
+    pill:
+      'border border-amber-300/45 bg-amber-300/20 text-amber-800 shadow-[0_0_0_1px_rgba(245,158,11,0.08),0_10px_22px_-14px_rgba(245,158,11,0.8)]',
+    dot: 'bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)]',
+    bar: 'bg-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.55)]',
   },
   overdue: {
     label: 'Просрочено',
-    pill: 'bg-secondary-container text-on-secondary-container',
-    dot: 'bg-on-secondary-container',
-    bar: 'bg-on-secondary-container/75',
+    pill:
+      'border border-rose-400/45 bg-rose-500/15 text-rose-700 shadow-[0_0_0_1px_rgba(244,63,94,0.08),0_10px_24px_-13px_rgba(244,63,94,0.9)]',
+    dot: 'text-rose-500 drop-shadow-[0_0_7px_rgba(244,63,94,0.75)]',
+    bar: 'bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.6)]',
+    icon: 'warning',
   },
   assigned: {
     label: 'Назначено',
-    pill: 'border border-outline-variant/60 bg-surface text-on-surface-variant',
-    dot: 'bg-on-surface-variant/60',
-    bar: 'bg-outline-variant',
+    pill:
+      'border border-sky-300/45 bg-sky-400/15 text-sky-700 shadow-[0_0_0_1px_rgba(14,165,233,0.08),0_10px_22px_-15px_rgba(14,165,233,0.8)]',
+    dot: 'bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.85)]',
+    bar: 'bg-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.55)]',
   },
 };
 
@@ -149,7 +154,16 @@ function EmployeeRowItem({ row, first }: { row: EmployeeRow; first: boolean }) {
       <span
         className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[10.5px] font-bold uppercase tracking-wider ${meta.pill}`}
       >
-        <span className={`h-1.5 w-1.5 rounded-full ${meta.dot}`} />
+        {meta.icon ? (
+          <span
+            aria-hidden
+            className={`material-symbols-outlined text-[14px] leading-none ${meta.dot}`}
+          >
+            {meta.icon}
+          </span>
+        ) : (
+          <span className={`h-1.5 w-1.5 rounded-full ${meta.dot}`} />
+        )}
         {meta.label}
       </span>
     </div>

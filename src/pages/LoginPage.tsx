@@ -350,6 +350,7 @@ export default function LoginPage() {
                   badgeIcon="login"
                   title="С возвращением"
                   subtitle="Войдите по корпоративному email"
+                  scrollable={false}
                 >
                   <form
                     onSubmit={handleLoginSubmit}
@@ -660,6 +661,7 @@ function FormCard({
   headerLeading,
   title,
   subtitle,
+  scrollable = true,
   children,
 }: {
   tone?: 'light' | 'dark';
@@ -669,13 +671,16 @@ function FormCard({
   badgeIcon?: string;
   title: string;
   subtitle: string;
+  scrollable?: boolean;
   children: ReactNode;
 }) {
   const isDark = tone === 'dark';
 
   return (
     <div
-      className={`relative flex min-h-0 flex-col overflow-x-hidden overflow-y-auto overscroll-contain rounded-[2rem] ${
+      className={`relative flex min-h-0 flex-col overflow-x-hidden rounded-[2rem] ${
+        scrollable ? 'overflow-y-auto overscroll-contain' : 'overflow-y-hidden'
+      } ${
         isDark ? 'h-full max-h-full p-6 md:p-8' : 'h-full max-h-full p-7 md:p-9'
       } ${
         isDark

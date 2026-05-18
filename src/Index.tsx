@@ -18,16 +18,16 @@ export default function Index() {
       <Header />
       <main className="flex-grow">
         <Hero />
-        <PartnersLogoMarquee />
-        <StatsStrip />
         <PlatformSolutionSection />
         <CompanyRequirementsMockupSection />
+        <StatsStrip />
         <ControlDashboardSection />
         <ForWhomSection />
         <OurCoursesSection />
         {/* <WhyChooseUsSection /> */}
         <LearningFormatSection />
         <FinalCTASection />
+        <PartnersLogoMarquee />
       </main>
       <LandingFooter />
     </div>

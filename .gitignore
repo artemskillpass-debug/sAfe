@@ -18,6 +18,9 @@ dist-ssr
 # Временные выгрузки Stitch при отладке парсера
 scripts/_*.html
 
+# Локальная папка с массой файлов (не ассеты сайта)
+MWP/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

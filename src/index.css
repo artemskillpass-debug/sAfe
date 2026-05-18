@@ -362,66 +362,94 @@ header[class*='sticky'],
   }
 
   /* ============================================================
-     Blob accent — фигурная подложка под inline-текст
+     Brush highlight — обводка «мокрой кистью» под inline-текст.
+     SVG-мазок с feTurbulence (рваный край) + градиент по ходу (загрузка
+     краски) + бороздки от ворса. Без CSS rotate-jitter на ховере.
      ============================================================ */
   .blob-accent {
     position: relative;
     display: inline-block;
     isolation: isolate;
-    padding: 0.12em 0.45em 0.18em;
+    /* Чуть больше воздуха снизу — мазок «свисает» под буквы */
+    padding: 0.04em 0.55em 0.14em;
     color: #001e2c;
     font-weight: 800;
+    /* Лёгкий природный наклон. На ховере не меняется. */
+    --brush-tilt: -1.4deg;
   }
-  .blob-accent::before {
-    content: '';
+  .blob-accent--alt {
+    --brush-tilt: 1.6deg;
+  }
+  .blob-accent--squircle {
+    --brush-tilt: -0.5deg;
+  }
+
+  /* SVG-мазок: растянут по тексту, без preserveAspectRatio внутри */
+  .blob-accent__brush {
     position: absolute;
-    inset: 0;
+    inset: -14% -6% -18%;
+    width: 112%;
+    height: 132%;
     z-index: -1;
-    background: #3abef9;
-    border-radius: 60% 40% 70% 35% / 50% 70% 35% 60%;
-    transform: rotate(-2deg);
-    box-shadow:
-      0 10px 24px -8px rgba(0, 30, 44, 0.28),
-      inset 0 1px 0 rgba(255, 255, 255, 0.35);
-    transition: transform 0.45s var(--ease-out-soft);
-  }
-  .blob-accent:hover::before {
-    transform: rotate(2deg) scale(1.02);
-  }
-
-  /* Вариант — наклон в противоположную сторону + другая форма */
-  .blob-accent--alt::before {
-    border-radius: 35% 65% 40% 60% / 60% 35% 65% 40%;
-    transform: rotate(2deg);
-  }
-  .blob-accent--alt:hover::before {
-    transform: rotate(-2deg) scale(1.02);
+    overflow: visible;
+    transform: rotate(var(--brush-tilt));
+    transform-origin: 50% 60%;
+    /* Долгая «усадка краски» — ховер плавный, не дёргается */
+    transition:
+      transform 0.7s var(--ease-out-soft),
+      opacity 0.5s var(--ease-out-soft);
+    will-change: transform;
+    pointer-events: none;
   }
 
-  /* Третья форма — для разнообразия (squircle с эксцентриситетом) */
-  .blob-accent--squircle::before {
-    border-radius: 45% 55% 50% 45% / 50% 45% 55% 50%;
-    transform: rotate(-1.5deg);
+  .blob-accent__brush-ghost {
+    /* «Второй проход» — слегка сдвинутый призрачный мазок */
+    transform: translate(-0.6%, 3%);
+    transform-origin: 50% 50%;
   }
 
-  /* Тёмный вариант поверх dark surface — белый текст, тот же голубой блоб */
+  .blob-accent__brush-bristle {
+    /* Прожилки ворса; на ховере чуть подсыхают — становятся менее заметны */
+    transition: opacity 0.6s var(--ease-out-soft);
+    mix-blend-mode: screen;
+  }
+
+  .blob-accent__text {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Ховер: «краска оседает» — почти незаметное сжатие по горизонтали и
+     лёгкое опускание. Никаких rotate-флипов. */
+  .blob-accent:hover .blob-accent__brush {
+    transform: rotate(var(--brush-tilt)) scale(0.996, 1.012)
+      translateY(0.5%);
+  }
+  .blob-accent:hover .blob-accent__brush-bristle {
+    opacity: 0.06;
+  }
+
+  /* Тёмный вариант поверх dark surface — добавляем мягкий glow */
   .blob-accent--on-dark {
     color: #001e2c;
   }
-  .blob-accent--on-dark::before {
-    box-shadow:
-      0 12px 30px -8px rgba(58, 190, 249, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  .blob-accent--on-dark .blob-accent__brush {
+    filter: drop-shadow(0 0 18px rgba(58, 190, 249, 0.55));
   }
 
-  /* Outline-вариант — прозрачный блоб с обводкой (для второстепенных акцентов) */
+  /* Outline-вариант — только контур, для второстепенных акцентов */
   .blob-accent--outline {
     color: #00253b;
   }
-  .blob-accent--outline::before {
-    background: transparent;
-    border: 2px solid #3abef9;
-    box-shadow: none;
+  .blob-accent--outline .blob-accent__brush-body {
+    fill: none;
+    stroke: #3abef9;
+    stroke-width: 3;
+    stroke-linejoin: round;
+  }
+  .blob-accent--outline .blob-accent__brush-ghost,
+  .blob-accent--outline .blob-accent__brush-bristle {
+    display: none;
   }
 
   /* ============================================================
@@ -515,8 +543,14 @@ header[class*='sticky'],
     .animate-bounce-slow {
       animation: none !important;
     }
-    .blob-accent::before {
+    .blob-accent__brush {
       transition: none !important;
+    }
+    .blob-accent:hover .blob-accent__brush {
+      transform: rotate(var(--brush-tilt));
+    }
+    .blob-accent:hover .blob-accent__brush-bristle {
+      opacity: inherit;
     }
     .flip-card {
       transition: none;

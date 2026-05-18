@@ -203,7 +203,7 @@ const LogoLoop: FC<LogoLoopProps> = ({
                   src={logo.src}
                   alt={logo.alt}
                   style={{ height: logoHeight }}
-                  className="pointer-events-none w-auto max-w-[20rem] object-contain opacity-95 transition-all duration-300 ease-out select-none group-hover:scale-[1.05] group-hover:opacity-100 md:max-w-[26rem] xl:max-w-[30rem]"
+                  className="pointer-events-none w-auto max-w-[10.5rem] object-contain opacity-95 transition-all duration-300 ease-out select-none group-hover:scale-[1.05] group-hover:opacity-100 sm:max-w-[12rem] md:max-w-[14rem] lg:max-w-[15rem]"
                   loading="lazy"
                   decoding="async"
                 />
@@ -248,11 +248,11 @@ const LogoLoop: FC<LogoLoopProps> = ({
   );
 
   const fadeLeftStyle = {
-    background: `linear-gradient(90deg, ${fadeColor} 0%, ${fadeColor} 12%, transparent 100%)`,
+    background: `linear-gradient(90deg, ${fadeColor} 0%, ${fadeColor} 28%, transparent 92%)`,
   };
 
   const fadeRightStyle = {
-    background: `linear-gradient(270deg, ${fadeColor} 0%, ${fadeColor} 12%, transparent 100%)`,
+    background: `linear-gradient(270deg, ${fadeColor} 0%, ${fadeColor} 28%, transparent 92%)`,
   };
 
   return (
@@ -264,13 +264,13 @@ const LogoLoop: FC<LogoLoopProps> = ({
         <>
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 sm:w-10 md:w-14 lg:w-16"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-16 md:w-24 lg:w-28"
             style={fadeLeftStyle}
           />
 
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 sm:w-10 md:w-14 lg:w-16"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-16 md:w-24 lg:w-28"
             style={fadeRightStyle}
           />
         </>
@@ -278,7 +278,7 @@ const LogoLoop: FC<LogoLoopProps> = ({
 
       <div
         ref={trackRef}
-        className="flex py-8 will-change-transform md:py-10 lg:py-12"
+        className="flex py-4 will-change-transform md:py-5"
       >
         {logoLists}
       </div>
@@ -297,24 +297,23 @@ export default function PartnersLogoMarquee() {
         className="dot-grid pointer-events-none absolute inset-0 opacity-30"
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1700px] px-margin-mobile py-12 md:px-margin-desktop md:py-14 xl:px-8">
-        <div className="mb-8 flex items-center justify-between gap-6 md:mb-10">
-          <span className="section-index">Trust · Partners</span>
-          <span className="hairline hidden flex-1 sm:block" />
+      <div className="relative z-10 mx-auto max-w-container-max px-margin-mobile pb-16 pt-14 md:px-margin-desktop md:pb-20 md:pt-16">
+        <div className="mb-6 flex items-center justify-between gap-6 md:mb-8">
+          <p id="partners-marquee-heading" className="section-index m-0">
+            Trust · Partners
+          </p>
+          <span className="hairline hidden min-w-0 flex-1 sm:block" />
         </div>
-      </div>
 
-      <div className="relative z-10 w-full">
         <LogoLoop
           logos={PARTNER_LOGOS}
           speed={90}
           direction="right"
-          logoHeight={112}
-          gap={160}
+          logoHeight={76}
+          gap={96}
           pauseOnHover
           fadeOut
           fadeColor="#f2f4f6"
-          className="px-2 sm:px-4 md:px-6"
         />
       </div>
     </section>
