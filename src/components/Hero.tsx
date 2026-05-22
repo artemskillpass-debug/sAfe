@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-
+import heroMockup from '../assets/hero/hero-mockup.png';
 /**
  * SkillPass Hero — белый фон (bg-surface), реальный мокап справа.
  * Картинку положи в: /public/images/hero-mockup.png
@@ -160,7 +160,7 @@ export default function Hero() {
               className="absolute bottom-0 left-1/2 h-12 w-2/3 -translate-x-1/2 rounded-full bg-primary/10 blur-2xl"
             />
             <img
-              src="/src/assets/hero/hero-mockup.png"
+              src={heroMockup}
               alt="SkillPass — мобильное приложение и веб-дашборд"
               width={580}
               height={460}
